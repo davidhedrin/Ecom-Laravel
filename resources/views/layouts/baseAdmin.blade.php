@@ -224,7 +224,7 @@
                             </a>
                             <ul aria-expanded="false">
                                 <li><a href="{{ route('admin.categories') }}">All Category</a></li>
-                                <li><a href="">Add Category</a></li>
+                                <li><a href="{{ route('admin.addCategory') }}">Add Category</a></li>
                             </ul>
                         </li>
                         <li>

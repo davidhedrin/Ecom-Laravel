@@ -4,7 +4,7 @@
             <div class="card">
                 <div class="card-body pb-0 d-flex justify-content-between">
                     <div>
-                        <h4>Edit Categories</h4> 
+                        <h4>Edit Categories: <u>{{ $name_categ }}</u></h4> 
                     </div>
                     <div>
                         <a href="{{ route('admin.categories') }}" type="button" class="btn btn-success btn-sm">All category</a>
@@ -23,7 +23,8 @@
                                 <label class="col-form-label" for="val-username">Category Name: <span class="text-danger">*</span>
                                 </label>
                                 <div>
-                                    <input type="text" class="form-control input-default" wire:model="name" wire:keyup="generateslug"  placeholder="Enter category Name" required />
+                                    <input type="text" class="form-control input-default" wire:model="name" wire:keyup="generateslug"  placeholder="Enter category Name" />
+                                    @error('name')<p class="text-danger">{{ $message }}</p>@enderror
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -31,6 +32,7 @@
                                 </label>
                                 <div>
                                     <input type="text" class="form-control input-default" placeholder="Enter category Slug" wire:model="slug" disabled />
+                                    @error('slug')<p class="text-danger">{{ $message }}</p>@enderror
                                 </div>
                             </div>
                         </div>
