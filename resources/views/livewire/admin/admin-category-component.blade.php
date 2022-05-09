@@ -90,7 +90,7 @@
                                         <td>{{ $categ->slug }}</td>
                                         <td>
                                             <a href="{{ route('admin.editcategory', ['category_slug'=>$categ->slug]) }}" class="pr-2"><i class="fa fa-edit" style="color: rgb(255, 170, 0)"></i></a>
-                                            <a href="" wire:click.prevent="deleteCategory({{ $categ->id }})"><i class="fa fa-trash" style="color: red"></i></a>
+                                            <a href="#" onclick="confirm('Are you sure, want to delete this category?') || event.stopImmediatePropagation()" wire:click.prevent="deleteCategory({{ $categ->id }})"><i class="fa fa-trash" style="color: red"></i></a>
                                         </td>
                                     </tr>
                                 @endforeach

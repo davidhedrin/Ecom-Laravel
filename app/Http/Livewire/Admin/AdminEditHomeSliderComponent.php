@@ -33,8 +33,27 @@ class AdminEditHomeSliderComponent extends Component
         $this->slider_id = $slider->id;
     }
 
+    public function updated($fields)
+    {
+        $this->validateOnly($fields, [
+            'title'=>'required',
+            'subtitle'=>'required',
+            'price'=>'required',
+            'link'=>'required',
+            'status'=>'required',
+            'type_slide'=>'required'
+        ]);
+    }
     public function updateSlide()
     {
+        $this->validate([
+            'title'=>'required',
+            'subtitle'=>'required',
+            'price'=>'required',
+            'link'=>'required',
+            'status'=>'required',
+            'type_slide'=>'required'
+        ]);
         $slider = HomeSlider::find($this->slider_id);
         $slider->title = $this->title;
         $slider->subtitle = $this->subtitle;

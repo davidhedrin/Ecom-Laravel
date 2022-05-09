@@ -24,7 +24,7 @@
                                 </label>
                                 <div>
                                     <input type="text" class="form-control input-default" wire:model="name" wire:keyup="generateslug"  placeholder="Enter category Name" />
-                                    @error('name') <p class="text-danger">{{ $message }}</p> @enderror
+                                    @error('name') <span class="text-danger">{{ $message }}</span> @enderror
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -32,7 +32,7 @@
                                 </label>
                                 <div>
                                     <input type="text" class="form-control input-default" placeholder="Enter category Slug" wire:model="slug" disabled />
-                                    @error('slug') <p class="text-danger">{{ $message }}</p> @enderror
+                                    @error('slug') <span class="text-danger">{{ $message }}</span> @enderror
                                 </div>
                             </div>
                         </div>

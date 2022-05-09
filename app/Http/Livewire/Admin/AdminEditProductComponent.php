@@ -12,38 +12,63 @@ use Illuminate\Support\Str;
 class AdminEditProductComponent extends Component
 {
     use WithFileUploads;
-    public $name; 
-    public $slug; 
-    public $short_desc; 
-    public $description; 
-    public $regular_price; 
-    public $sale_price; 
-    public $SKU; 
-    public $stock_status; 
-    public $featured; 
-    public $quantity; 
+
+    // Form Form Edit
+    public $name;
+    public $slug;
+    public $short_desc;
+    public $description;
+    public $regular_price;
+    public $sale_price;
+    public $SKU;
+    public $stock_status;
+    public $featured;
+    public $quantity;
     public $image; 
     public $category_id;
     public $newimage;
     public $product_id;
 
+    // For Display
+    public $name_product;
+    public $category_name;
+    public $short_desc_text;
+    public $description_text;
+    public $regular_price_text;
+    public $sale_price_text;
+    public $SKU_text;
+    public $stock_status_text;
+    public $quantity_text;
+
     public function mount($product_slug)
     {
-        $prodct = Product::where('slug', $product_slug)->first();
-        $this->name = $prodct->name;
-        $this->slug = $prodct->slug;
-        $this->short_desc = $prodct->short_desc;
-        $this->description = $prodct->description;
-        $this->regular_price = $prodct->regular_price;
-        $this->sale_price = $prodct->sale_price;
-        $this->SKU = $prodct->SKU;
-        $this->stock_status = $prodct->stock_status;
-        $this->featured = $prodct->featured;
-        $this->quantity = $prodct->quantity;
-        $this->image = $prodct->image;
-        $this->category_id = $prodct->category_id;
-        $this->product_id = $prodct->id;
+        $product = Product::where('slug', $product_slug)->first();
+        
+        // Form Form Edit
+        $this->name = $product->name;
+        $this->slug = $product->slug;
+        $this->short_desc = $product->short_desc;
+        $this->description = $product->description;
+        $this->regular_price = $product->regular_price;
+        $this->sale_price = $product->sale_price;
+        $this->SKU = $product->SKU;
+        $this->stock_status = $product->stock_status;
+        $this->featured = $product->featured;
+        $this->quantity = $product->quantity;
+        $this->image = $product->image;
+        $this->category_id = $product->category_id;
+        $this->product_id = $product->id;
 
+        // For Display
+        $this->name_product = $product->name;
+        $this->category_name = $product->category->name;
+        $this->short_desc_text = $product->short_desc;
+        $this->description_text = $product->description;
+        $this->regular_price_text = $product->regular_price;
+        $this->sale_price_text = $product->sale_price;
+        $this->SKU_text = $product->SKU;
+        $this->stock_status_text = $product->stock_status;
+        $this->quantity_text = $product->quantity;
     }
 
     public function generateSlug()
@@ -55,15 +80,12 @@ class AdminEditProductComponent extends Component
     {
         $this->validateOnly($fields, [
             'name'=>'required',
-            'slug'=>'required|unique:products',
             'short_desc'=>'required',
             'description'=>'required',
             'regular_price'=>'required',
-            'sale_price'=>'numeric',
             'SKU'=>'required',
             'stock_status'=>'required',
             'quantity'=>'required|numeric',
-            //'newimage'=>'required|mimes:jpeg,png',
             'category_id'=>'required'
         ]);
     }
@@ -72,15 +94,12 @@ class AdminEditProductComponent extends Component
     {
         $this->validate([
             'name'=>'required',
-            'slug'=>'required|unique:products',
             'short_desc'=>'required',
             'description'=>'required',
             'regular_price'=>'required',
-            'sale_price'=>'numeric',
             'SKU'=>'required',
             'stock_status'=>'required',
             'quantity'=>'required|numeric',
-            //'newimage'=>'required|mimes:jpeg,png',
             'category_id'=>'required'
         ]);
         $product = Product::find($this->product_id);
@@ -92,7 +111,7 @@ class AdminEditProductComponent extends Component
         if($this->sale_price != null){
             $product->sale_price = currencyIDRToNumeric($this->sale_price);
         }else{
-            $product->sale_price = $this->sale_price;
+            $product->sale_price = null;
         }
         $product->SKU = $this->SKU;
         $product->stock_status = $this->stock_status;

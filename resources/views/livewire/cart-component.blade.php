@@ -35,7 +35,18 @@
                                     <div class="product-name">
                                         <a class="link-to-product" href="{{ route('product.details', ['slug'=>$item->model->slug]) }}">{{ $item->model->name }}</a>
                                     </div>
-                                    <div class="price-field produtc-price"><p class="price">{{ currency_IDR($item->model->regular_price) }}</p></div>
+                                    <div class="price-field produtc-price">
+                                        @if ($item->model->sale_price > 0)
+                                            <div class="text-left">
+                                                <span><del style="font-size: 12px">{{ currency_IDR($item->model->regular_price) }}</del></span>
+                                                <p class="price">{{ currency_IDR($item->model->sale_price) }}</p>
+                                            </div>
+                                        @else
+                                            <div class="text-left">
+                                                <p class="price">{{ currency_IDR($item->model->regular_price) }}</p>
+                                            </div>
+                                        @endif
+                                    </div>
                                     <div class="quantity">
                                         <div class="quantity-input">
                                             <input type="text" name="product-quatity" value="{{ $item->qty }}" data-max="120" pattern="[0-9]*" disabled />									

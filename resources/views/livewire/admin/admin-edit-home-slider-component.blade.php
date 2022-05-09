@@ -13,27 +13,28 @@
                 <div class="card-body">
                     <form action="" enctype="multipart/form-data" wire:submit.prevent="updateSlide">
                         <div class="row">
-                            <div class="col-md-2">
+                            <div class="col-md-3">
                                 <label class="col-form-label" for="val-sku">Status: <span class="text-danger">*</span>
                                 </label>
                                 <div>
-                                    <select class="form-control-sm" name="" id="" wire:model="status" required >
+                                    <select class="form-control input-default" name="" id="" wire:model="status" >
                                         <option value="" selected disabled>Select Status Slider</option>
                                         <option value="0">Active</option>
                                         <option value="1">Inactive</option>
                                     </select>
+                                    @error('status')<span class="text-danger">{{ $message }}</span>@enderror
                                 </div>
                             </div>
-                            <div class="col-md-2">
+                            <div class="col-md-3">
                                 <label class="col-form-label" for="val-sku">Type: <span class="text-danger">*</span>
                                 </label>
                                 <div>
-                                    <select class="form-control-sm" name="" id="" wire:model="type_slide" required >
+                                    <select class="form-control input-default" name="" id="" wire:model="type_slide" >
                                         <option value="" selected disabled>Select Type Slider</option>
-                                        <option value="1">Slider 1</option>
-                                        <option value="2">Slider 2</option>
-                                        <option value="3">Slider 3</option>
+                                        <option value="1">Slider 1 (Center)</option>
+                                        <option value="3">Slider 2 (Left)</option>
                                     </select>
+                                    @error('type_slide')<span class="text-danger">{{ $message }}</span>@enderror
                                 </div>
                             </div>
                         </div>
@@ -42,14 +43,16 @@
                                 <label class="col-form-label" for="val-sku">Title: <span class="text-danger">*</span>
                                 </label>
                                 <div>
-                                    <input type="text" class="form-control input-default" placeholder="Enter Title Slider" wire:model="title" required />
+                                    <input type="text" class="form-control input-default" placeholder="Enter Title Slider" wire:model="title" />
+                                    @error('title')<span class="text-danger">{{ $message }}</span>@enderror
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <label class="col-form-label" for="val-qty">Subtitle: <span class="text-danger">*</span>
                                 </label>
                                 <div>
-                                    <input type="text" class="form-control input-default" placeholder="Enter Subtitle Slider" wire:model="subtitle" required />
+                                    <input type="text" class="form-control input-default" placeholder="Enter Subtitle Slider" wire:model="subtitle" />
+                                    @error('subtitle')<span class="text-danger">{{ $message }}</span>@enderror
                                 </div>
                             </div>
                         </div>
@@ -58,14 +61,16 @@
                                 <label class="col-form-label" for="val-sku">Price: <span class="text-danger">*</span>
                                 </label>
                                 <div>
-                                    <input type="text" class="form-control input-default" placeholder="Rp" type-currency="IDR" wire:model="price" required />
+                                    <input type="text" class="form-control input-default" placeholder="Rp" type-currency="IDR" wire:model="price" />
+                                    @error('price')<span class="text-danger">{{ $message }}</span>@enderror
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <label class="col-form-label" for="val-qty">Link: <span class="text-danger">*</span>
                                 </label>
                                 <div>
-                                    <input type="text" class="form-control input-default" placeholder="Enter Link Slider" wire:model="link" required />
+                                    <input type="text" class="form-control input-default" placeholder="Enter Link Slider" wire:model="link" />
+                                    @error('link')<span class="text-danger">{{ $message }}</span>@enderror
                                 </div>
                             </div>
                         </div>

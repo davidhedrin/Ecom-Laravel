@@ -24,8 +24,29 @@ class AdminAddHomeSliderComponent extends Component
         $this->type_slide = '';
     }
 
+    public function updated($fields)
+    {
+        $this->validateOnly($fields, [
+            'title'=>'required',
+            'subtitle'=>'required',
+            'price'=>'required',
+            'link'=>'required',
+            'image'=>'required|mimes:jpeg,png',
+            'status'=>'required',
+            'type_slide'=>'required'
+        ]);
+    }
     public function addSlide()
     {
+        $this->validate([
+            'title'=>'required',
+            'subtitle'=>'required',
+            'price'=>'required',
+            'link'=>'required',
+            'image'=>'required|mimes:jpeg,png',
+            'status'=>'required',
+            'type_slide'=>'required'
+        ]);
         $slider = new HomeSlider();
         $slider->title = $this->title;
         $slider->subtitle = $this->subtitle;

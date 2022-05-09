@@ -21,7 +21,7 @@ class AdminEditCategoryComponent extends Component
         $this->category_id = $category->id;
         $this->name = $category->name;
         $this->slug = $category->slug;
-        $this->name_categ = $this->name;
+        $this->name_categ = $category->name;
     }
 
     public function generateslug()
