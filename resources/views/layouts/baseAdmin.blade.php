@@ -214,7 +214,7 @@
                             </a>
                             <ul aria-expanded="false">
                                 <li><a href="{{ route('admin.homeslider') }}">Home Slider</a></li>
-                                <li><a href="{{ route('admin.sale') }}">Home Sales</a></li>
+                                {{-- <li><a href="{{ route('admin.sale') }}">Home Sales</a></li> --}}
                                 <li><a href="{{ route('admin.homecategories') }}">Home Category</a></li>
                             </ul>
                         </li>
@@ -233,6 +233,7 @@
                             </a>
                             <ul aria-expanded="false">
                                 <li><a href="{{ route('admin.products') }}">All Products</a></li>
+                                <li><a href="{{ route('admin.saleproducts') }}">All Sale Products</a></li>
                                 <li><a href="{{ route('admin.addproduct') }}">Add Product</a></li>
                             </ul>
                         </li>

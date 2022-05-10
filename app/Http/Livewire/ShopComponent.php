@@ -7,6 +7,7 @@ use Livewire\Component;
 use Livewire\WithPagination;
 use Cart;
 use App\Models\Category;
+use App\Models\Sale;
 
 class ShopComponent extends Component
 {
@@ -22,7 +23,7 @@ class ShopComponent extends Component
         $this->pagesize = 12;
 
         $this->min_price = 0;
-        $this->max_price = 1000000;
+        $this->max_price = 10000000;
     }
 
     public function store($product_id, $product_name, $product_price)
@@ -46,7 +47,16 @@ class ShopComponent extends Component
 
         $categories = Category::all();
         $popular_product = Product::inRandomOrder()->where('stock_status', 'instock')->paginate(5);
+        $sale = Sale::find(1);
 
-        return view('livewire.shop-component', ['products' => $product, 'categories'=>$categories, 'popular_product'=>$popular_product])->layout('layouts.base');
+        return view(
+            'livewire.shop-component', 
+            [
+                'products' => $product, 
+                'categories'=>$categories, 
+                'popular_product'=>$popular_product,
+                'sale'=>$sale
+            ]
+        )->layout('layouts.base');
     }
 }

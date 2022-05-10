@@ -1,52 +1,59 @@
 <div>
-    {{-- <style>
-        nav svg{
-            height: 20px;
-        }
-        nav .hidden{
-            display: block !important;
-        }
-    </style> --}}
-    
-    {{-- <div class="row">
-        <div class="col-12 m-b-30">
-            <div class="d-flex justify-content-between">
-                <div>
-                    <h4>Your Products:</h4> 
-                </div>
-            </div>
-            <div class="row">
-                @foreach ($popular_product as $p_product)
-                    <div class="col-lg-3">
-                        <div class="card">
-                            <img class="img-fluid" src="{{ asset('assets/images/products') }}/{{ $p_product->image }}" alt="{{ $p_product->name }}">
-                            <div class="card-body">
-                                <span class="badge badge-{{ $p_product->stock_status == 'instock' ? 'success':'danger' }}" style="color: white">{{ $p_product->stock_status }}</span>
-                                @if ($p_product->sale_price > 0)
-                                    <del><p class="pt-2 card-text">{{ currency_IDR($p_product->regular_price) }}</p></del>
-                                    <p class="card-title" style="font-weight: bold; color:rgb(228, 148, 0);">{{ currency_IDR($p_product->sale_price) }}</p>
-                                @else
-                                    <p class="pt-2 card-title" style="font-weight: bold; color:rgb(228, 148, 0);">{{ currency_IDR($p_product->regular_price) }}</p>
-                                @endif
-                                <a class="card-text pt-0" href="{{ route('admin.editproduct', ['product_slug' => $p_product->slug]) }}" style="color:black; font-size: 13pt">{{ $p_product->name }}</a>
-                                <p style="font-size: 10pt">{{ $p_product->category->name }}</p>
-                            </div>
-                        </div>
-                    </div>
-                @endforeach
-            </div>
-        </div>
-    </div> --}}
-
     <div class="row">
         <div class="col-lg-12">
             <div class="card">
                 <div class="card-body pb-0 d-flex justify-content-between">
                     <div>
-                        <h4>All Products</h4> 
+                        <h4>Home Sale Setting</h4> 
+                    </div>
+                    {{-- <div>
+                        <a href="{{ route('admin.addproduct') }}" type="button" class="btn btn-success btn-sm">Add New</a>
+                    </div> --}}
+                </div>
+                <div class="card-body">
+                    @if (Session::has('messageUpdSale'))
+                        <div class="alert alert-success alert-dismissible fade show">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button> 
+                            <strong>Updated!</strong> {{ Session::get('messageUpdSale') }}
+                        </div>
+                    @endif
+                    <form action="" wire:submit.prevent="updateSale">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label class="col-form-label">Status: <span class="text-danger">*</span>
+                                </label>
+                                <div>
+                                    <select class="form-control input-default" wire:model="status" required >
+                                        <option value="" selected disabled>Select status Sale</option>
+                                        <option value="0">Active</option>
+                                        <option value="1">Inactive</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="col-form-label">Sale Date: <span class="text-danger">*</span> <span style="font-style: italic">(year-mounth-day house:minute:second)</span></label>
+                                <div>
+                                    <input type="text" id='datetimepicker1' class="form-control input-default" wire:model="sale_date">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="pt-4">
+                            <button type="submit" class="btn btn-primary btn-sm">Update</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-body pb-0 d-flex justify-content-between">
+                    <div>
+                        <h4>All Sales Products</h4> 
                     </div>
                     <div>
-                        <a href="{{ route('admin.addproduct') }}" type="button" class="btn btn-success btn-sm">Add New</a>
+                        <a href="{{ route('admin.products') }}" type="button" class="btn btn-success btn-sm">All Products</a>
                     </div>
                 </div>
                 <div class="card-body">

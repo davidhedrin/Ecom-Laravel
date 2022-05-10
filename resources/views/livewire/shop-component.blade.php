@@ -66,7 +66,7 @@
                                         </a>
                                     </div>
                                     <div class="product-info">
-                                        @if ($product->sale_price > 0)
+                                        @if ($product->sale_price > 0 && $sale->status == 0 && $sale->sale_date > Carbon\Carbon::now())
                                             <del><p>{{ currency_IDR($product->regular_price) }}</p></del>
                                             <h4 style="font-weight: bold; color:rgb(228, 148, 0);">{{ currency_IDR($product->sale_price) }}</h4>
                                         @else
@@ -198,11 +198,11 @@
     <script>
         var slider = document.getElementById('slider');
         noUiSlider.create(slider, {
-            start: [0, 1000000],
+            start: [0, 10000000],
             connect: true,
             range: {
                 'min':0,
-                'max':1000000
+                'max':10000000
             },
             pips:{
                 mode:'steps',

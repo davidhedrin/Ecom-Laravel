@@ -3,10 +3,13 @@
 namespace App\Http\Livewire\Admin;
 
 use Livewire\Component;
+use App\Models\Product;
 use App\Models\Sale;
+use Livewire\WithPagination;
 
-class AdminSaleComponent extends Component
+class AdminSaleProductComponent extends Component
 {
+    use WithPagination;
     public $sale_date;
     public $status;
 
@@ -26,8 +29,16 @@ class AdminSaleComponent extends Component
         session()->flash('messageUpdSale', 'Record has been UPDATED successfully!');
     }
 
+    public function deleteProduct($id)
+    {
+        $product = Product::find($id);
+        $product->delete();
+        session()->flash('messageDelProd', 'has been deleted successfully!');
+        session()->flash('messageDelProdId', $id);
+    }
     public function render()
     {
-        return view('livewire.admin.admin-sale-component')->layout('layouts.baseAdmin');
+        $products = Product::whereNotNull('sale_price')->orderBy('created_at', 'DESC')->paginate(10);
+        return view('livewire.admin.admin-sale-product-component', ['products'=>$products])->layout('layouts.baseAdmin');
     }
 }

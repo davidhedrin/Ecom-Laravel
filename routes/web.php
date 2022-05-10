@@ -19,6 +19,7 @@ use App\Http\Livewire\Admin\AdminAddCategoryComponent;
 use App\Http\Livewire\Admin\AdminEditCategoryComponent;
 //Product
 use App\Http\Livewire\Admin\AdminProductComponent;
+use App\Http\Livewire\Admin\AdminSaleProductComponent;
 use App\Http\Livewire\Admin\AdminAddProductComponent;
 use App\Http\Livewire\Admin\AdminEditProductComponent;
 //HomeSlider
@@ -27,8 +28,6 @@ use App\Http\Livewire\Admin\AdminAddHomeSliderComponent;
 use App\Http\Livewire\Admin\AdminEditHomeSliderComponent;
 //HomeCategory
 use App\Http\Livewire\Admin\AdminHomeCategoryComponent;
-//HomeSale
-use App\Http\Livewire\Admin\AdminSaleComponent;
 
 
 /*
@@ -80,6 +79,7 @@ Route::middleware(['auth:sanctum', 'verified', 'authadmin'])->group(function () 
     
     // Product Route
     Route::get('/admin/products', AdminProductComponent::class)->name('admin.products');
+    Route::get('/admin/sale/products', AdminSaleProductComponent::class)->name('admin.saleproducts');
     Route::get('/admin/product/add', AdminAddProductComponent::class)->name('admin.addproduct');
     Route::get('/admin/product/edit/{product_slug}', AdminEditProductComponent::class)->name('admin.editproduct');
 
@@ -90,7 +90,4 @@ Route::middleware(['auth:sanctum', 'verified', 'authadmin'])->group(function () 
 
     //HomeCategory Route
     Route::get('/admin/home-categories', AdminHomeCategoryComponent::class)->name('admin.homecategories');
-
-    //Home Sale Route
-    Route::get('/admin/sale', AdminSaleComponent::class)->name('admin.sale');
 });

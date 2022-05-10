@@ -21,7 +21,6 @@ class AdminProductComponent extends Component
     public function render()
     {
         $products = Product::orderBy('created_at', 'DESC')->paginate(10);
-        $popular_product = Product::inRandomOrder()->paginate(4);
-        return view('livewire.admin.admin-product-component', ['products'=>$products, 'popular_product'=>$popular_product])->layout('layouts.baseAdmin');
+        return view('livewire.admin.admin-product-component', ['products'=>$products])->layout('layouts.baseAdmin');
     }
 }
