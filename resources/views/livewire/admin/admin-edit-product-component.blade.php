@@ -39,8 +39,8 @@
                                         @endif
                                     </div>
                                 </div>
-                                <h5>{{ $short_desc_text }}</h5>
-                                <p>{{ $description_text }}</p>
+                                <h5>{!! $short_desc_text !!}</h5>
+                                <p>{!! $description_text !!}</p>
                                 <hr>
                             </div>
                         </div>
@@ -142,7 +142,7 @@
                             </div>
                         </div>
                         <div class="row pt-3">
-                            <div class="col-md-6">
+                            <div class="col-md-12">
                                 <label class="col-form-label" for="val-category">Category: <span class="text-danger">*</span>
                                 </label>
                                 <div>
@@ -154,23 +154,21 @@
                                     @error('category_id')<span class="text-danger">{{ $message }}</span>@enderror
                                 </div>
                             </div>
-                            <div class="col-md-6">
-                                <label class="col-form-label" for="val-shortDesc">Short Description: <span class="text-danger">*</span>
-                                </label>
-                                <div>
-                                    <input class="form-control input-default" placeholder="Enter Short Description" wire:model="short_desc" />
-                                    @error('short_desc')<span class="text-danger">{{ $message }}</span>@enderror
-                                </div>
+                        </div>
+                        <div class="form-group pt-3">
+                            <label class="col-form-label" for="val-shortDesc">Short Description: <span class="text-danger">*</span>
+                            </label>
+                            <div wire:ignore>
+                                <textarea id="short_desc" class="form-control input-default" placeholder="Enter Short Description" wire:model="short_desc"></textarea>
+                                @error('short_desc')<span class="text-danger">{{ $message }}</span>@enderror
                             </div>
                         </div>
-                        <div class="row pt-3">
-                            <div class="col-md-12">
-                                <label class="col-form-label" for="val-Description">Description: <span class="text-danger">*</span>
-                                </label>
-                                <div>
-                                    <textarea rows="4" class="form-control input-default" placeholder="Enter Description Product" wire:model="description"></textarea>
-                                    @error('description')<span class="text-danger">{{ $message }}</span>@enderror
-                                </div>
+                        <div class="form-group pt-3">
+                            <label class="col-form-label" for="val-Description">Description: <span class="text-danger">*</span>
+                            </label>
+                            <div wire:ignore>
+                                <textarea rows="4" id="description" class="form-control input-default" placeholder="Enter Description Product" wire:model="description"></textarea>
+                                @error('description')<span class="text-danger">{{ $message }}</span>@enderror
                             </div>
                         </div>
                         <div class="pt-3">
@@ -198,4 +196,29 @@
 </div>
 
 @push('scripts')
+    <script>
+        $(function(){
+            tinymce.init({
+                selector: '#short_desc',
+                setup: function(editor){
+                    editor.on('change', function(e){
+                       tinyMCE.triggerSave();
+                       var sd_data = $('#short_desc').val();
+                       @this.set('short_desc', sd_data);
+                    });
+                }
+            });
+
+            tinymce.init({
+                selector: '#description',
+                setup: function(editor){
+                    editor.on('change', function(e){
+                       tinyMCE.triggerSave();
+                       var d_data = $('#description').val();
+                       @this.set('description', d_data);
+                    });
+                }
+            });
+        });
+    </script>
 @endpush
