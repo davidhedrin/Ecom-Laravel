@@ -36,7 +36,7 @@ class ShopComponent extends Component
     public function addToWishlist($product_id, $product_name, $product_price)
     {
         Cart::instance('wishlist')->add($product_id, $product_name, 1, $product_price)->associate('App\Models\Product');
-        $this->emitTo('wish-list-count-component', 'refrenshComponent');
+        $this->emitTo('wish-list-count-component', 'refreshComponent');
     }
 
     public function removeFromWishlist($product_id)
@@ -46,7 +46,7 @@ class ShopComponent extends Component
             if($witem->id == $product_id)
             {
                 Cart::instance('wishlist')->remove($witem->rowId);
-                $this->emitTo('wish-list-count-component', 'refrenshComponent');
+                $this->emitTo('wish-list-count-component', 'refreshComponent');
                 return;
             }
         }

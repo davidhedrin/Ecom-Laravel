@@ -15,10 +15,19 @@ class WishlistComponent extends Component
             if($witem->id == $product_id)
             {
                 Cart::instance('wishlist')->remove($witem->rowId);
-                $this->emitTo('wish-list-count-component', 'refrenshComponent');
+                $this->emitTo('wish-list-count-component', 'refreshComponent');
                 return;
             }
         }
+    }
+
+    public function moveProductFromWishlistToCart($rowId)
+    {
+        $item = Cart::instance('wishlist')->get($rowId);
+        Cart::instance('wishlist')->remove($rowId);
+        Cart::instance('cart')->add($item->id, $item->name,1,$item->price)->associate('App\Models\Product');
+        $this->emitTo('wish-list-count-component', 'refreshComponent');
+        $this->emitTo('cart-count-component', 'refreshComponent');
     }
 
     public function render()
