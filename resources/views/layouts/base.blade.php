@@ -156,13 +156,6 @@
 						<div class="wrap-icon right-section">
 							@livewire('wish-list-count-component')
 							@livewire('cart-count-component')
-							<div class="wrap-icon-section show-up-after-1024">
-								<a href="#" class="mobile-navigation">
-									<span></span>
-									<span></span>
-									<span></span>
-								</a>
-							</div>
 						</div>
 
 					</div>

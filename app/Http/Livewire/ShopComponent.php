@@ -33,10 +33,23 @@ class ShopComponent extends Component
         return redirect()->route('product.cart');
     }
 
-    public function addToWishList($product_id, $product_name, $product_price)
+    public function addToWishlist($product_id, $product_name, $product_price)
     {
         Cart::instance('wishlist')->add($product_id, $product_name, 1, $product_price)->associate('App\Models\Product');
         $this->emitTo('wish-list-count-component', 'refrenshComponent');
+    }
+
+    public function removeFromWishlist($product_id)
+    {
+        foreach(Cart::instance('wishlist')->content() as $witem)
+        {
+            if($witem->id == $product_id)
+            {
+                Cart::instance('wishlist')->remove($witem->rowId);
+                $this->emitTo('wish-list-count-component', 'refrenshComponent');
+                return;
+            }
+        }
     }
 
     public function render()
