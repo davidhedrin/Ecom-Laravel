@@ -17,7 +17,7 @@
                             <strong>Success </strong>{{ Session::get('success_message') }}
                         </div>
                     @endif
-                    @if (Cart::count() > 0)
+                    @if (Cart::instance('cart')->count() > 0)
                         <div class="row" style="padding-bottom: 10px">
                             <div class="col-md-6">
                                 <h3 class="box-title">Products Detail</h3>
@@ -27,7 +27,7 @@
                             </div>
                         </div>
                         <ul class="products-cart">
-                            @foreach (Cart::content() as $item)
+                            @foreach (Cart::instance('cart')->content() as $item)
                                 <li class="pr-cart-item">
                                     <div class="product-image">
                                         <figure><img src="{{ asset('assets/images/products') }}/{{ $item->model->image }}" alt="{{ $item->model->name }}"></figure>
@@ -68,10 +68,10 @@
                         <div class="summary">
                             <div class="order-summary">
                                 <h4 class="title-box">Order Summary</h4>
-                                <p class="summary-info"><span class="title">Subtotal</span><b class="index">Rp. {{ Cart::subtotal() }}</b></p>
-                                <p class="summary-info"><span class="title">Tax</span><b class="index">Rp. {{ Cart::tax() }}</b></p>
+                                <p class="summary-info"><span class="title">Subtotal</span><b class="index">Rp. {{ Cart::instance('cart')->subtotal() }}</b></p>
+                                <p class="summary-info"><span class="title">Tax</span><b class="index">Rp. {{ Cart::instance('cart')->tax() }}</b></p>
                                 <p class="summary-info"><span class="title">Shipping</span><b class="index">Free Shipping</b></p>
-                                <p class="summary-info total-info "><span class="title">Total</span><b class="index">Rp. {{ Cart::total() }}</b></p>
+                                <p class="summary-info total-info "><span class="title">Total</span><b class="index">Rp. {{ Cart::instance('cart')->total() }}</b></p>
                             </div>
                             <div class="checkout-info">
                                 <label class="checkbox-field">
