@@ -237,6 +237,15 @@
                                 <li><a href="{{ route('admin.addproduct') }}">Add Product</a></li>
                             </ul>
                         </li>
+                        <li>
+                            <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                                <i class="fa-solid fa-ticket"></i> <span class="nav-text">Coupon</span>
+                            </a>
+                            <ul aria-expanded="false">
+                                <li><a href="{{ route('admin.coupons') }}">All Coupon</a></li>
+                                <li><a href="{{ route('admin.addcoupon') }}">Add Coupon</a></li>
+                            </ul>
+                        </li>
                         <li class="nav-label">Apps</li>
                         <li>
                             <a class="has-arrow" href="javascript:void()" aria-expanded="false">

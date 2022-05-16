@@ -17,7 +17,7 @@
                             <strong>Added!</strong> {{ Session::get('message') }}
                         </div>
                     @endif
-                    <form id="addCate-form-admin" class="form-valide" action=""  wire:submit.prevent="soreCategory">
+                    <form wire:submit.prevent="soreCategory">
                         <div class="row">
                             <div class="col-md-6">
                                 <label class="col-form-label" for="val-username">Category Name: <span class="text-danger">*</span>

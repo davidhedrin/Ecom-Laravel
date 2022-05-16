@@ -29,6 +29,10 @@ use App\Http\Livewire\Admin\AdminAddHomeSliderComponent;
 use App\Http\Livewire\Admin\AdminEditHomeSliderComponent;
 //HomeCategory
 use App\Http\Livewire\Admin\AdminHomeCategoryComponent;
+//Coupon
+use App\Http\Livewire\Admin\AdminCouponsComponent;
+use App\Http\Livewire\Admin\AdminAddCouponComponent;
+use App\Http\Livewire\Admin\AdminEditCouponComponent;
 
 
 /*
@@ -92,4 +96,9 @@ Route::middleware(['auth:sanctum', 'verified', 'authadmin'])->group(function () 
 
     //HomeCategory Route
     Route::get('/admin/home-categories', AdminHomeCategoryComponent::class)->name('admin.homecategories');
+
+    //Coupun Route
+    Route::get('/admin/coupons', AdminCouponsComponent::class)->name('admin.coupons');
+    Route::get('/admin/coupon/add', AdminAddCouponComponent::class)->name('admin.addcoupon');
+    Route::get('/admin/coupon/edit/{coupon_id}', AdminEditCouponComponent::class)->name('admin.editcoupon');
 });
