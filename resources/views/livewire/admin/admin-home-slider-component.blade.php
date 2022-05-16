@@ -1,4 +1,16 @@
 <div>
+    <style>
+        .rowCategory{
+            cursor: pointer;
+            transition: 0.3s all;
+        }
+        .rowCategory:hover{
+            background-color: rgb(227, 241, 255) !important;
+            font-weight: bold;
+            font-size: 11pt;
+            transition: 0.3s all;
+        }
+    </style>
 
     {{-- Slider Here --}}
     <div class="row">
@@ -80,7 +92,6 @@
                                     <th>Image</th>
                                     <th>Title</th>
                                     <th>Subtitle</th>
-                                    <th>Type</th>
                                     <th>Price</th>
                                     <th>Link</th>
                                     <th>Status</th>
@@ -90,12 +101,11 @@
                             </thead>
                             <tbody>
                                 @foreach ($sliders as $slide)
-                                    <tr>
+                                    <tr class="rowCategory" onclick="window.location='{{ route('admin.edithomeslider', ['slide_id'=>$slide->id]) }}'">
                                         <td>{{ $slide->id }}</td>
                                         <td><img src="{{ asset('assets/images/sliders') }}/{{ $slide->image }}" width="120" alt=""></td>
                                         <td>{{ $slide->title }}</td>
                                         <td>{{ $slide->subtitle }}</td>
-                                        <td>{{ $slide->type_slide == 1 ? 'Center':'Left' }}</td>
                                         <td>{{ currency_IDR($slide->price) }}</td>
                                         <td><a href="{{ $slide->link }}">{{ $slide->link }}</a></td>
                                         <td><span class="badge badge-{{ $slide->status == 0 ? 'success':'danger' }}">{{ $slide->status == 0 ? 'Active':'Inactive' }}</span></td>
@@ -113,7 +123,6 @@
                                     <th>Image</th>
                                     <th>Title</th>
                                     <th>Subtitle</th>
-                                    <th>Type</th>
                                     <th>Price</th>
                                     <th>Link</th>
                                     <th>Status</th>

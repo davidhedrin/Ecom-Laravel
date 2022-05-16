@@ -2,11 +2,15 @@
 @endpush
 <div>
     <style>
-        nav svg{
-            height: 20px;
+        .rowCategory{
+            cursor: pointer;
+            transition: 0.3s all;
         }
-        nav .hidden{
-            display: block !important;
+        .rowCategory:hover{
+            background-color: rgb(227, 241, 255) !important;
+            font-weight: bold;
+            font-size: 11pt;
+            transition: 0.3s all;
         }
     </style>
     
@@ -84,7 +88,7 @@
                             </thead>
                             <tbody>
                                 @foreach ($categories as $categ)
-                                    <tr>
+                                    <tr class="rowCategory" onclick="window.location='{{ route('admin.editcategory', ['category_slug'=>$categ->slug]) }}'">
                                         <td>{{ $categ->id }}</td>
                                         <td>{{ $categ->name }}</td>
                                         <td>{{ $categ->slug }}</td>

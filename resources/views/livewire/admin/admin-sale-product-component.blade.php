@@ -1,4 +1,17 @@
 <div>
+    <style>
+        .rowCategory{
+            cursor: pointer;
+            transition: 0.3s all;
+        }
+        .rowCategory:hover{
+            background-color: rgb(227, 241, 255) !important;
+            font-weight: bold;
+            font-size: 11pt;
+            transition: 0.3s all;
+        }
+    </style>
+
     <div class="row">
         <div class="col-lg-12">
             <div class="card">
@@ -98,7 +111,7 @@
                             </thead>
                             <tbody>
                                 @foreach ($products as $product)
-                                    <tr>
+                                    <tr class="rowCategory" onclick="window.location='{{ route('admin.editproduct', ['product_slug' => $product->slug]) }}'">
                                         <td>{{ $product->id }}</td>
                                         <td><img src="{{ asset('assets/images/products') }}/{{ $product->image }}" width="60" alt=""></td>
                                         <td>{{ $product->name }}</td>
@@ -107,9 +120,8 @@
                                         <td>{{ currency_IDR($product->sale_price) }}</td>
                                         <td>{{ $product->category->name }}</td>
                                         {{-- <td>{{ $product->created_at }}</td> --}}
-                                        <td>
+                                        <td class="text-center">
                                             <a href="{{ route('admin.editproduct', ['product_slug' => $product->slug]) }}" class="pr-2"><i class="fa fa-edit" style="color: rgb(255, 170, 0)"></i></a>
-                                            <a href="#" wire:click.prevent="deleteProduct({{ $product->id }})"><i class="fa fa-trash" style="color: red"></i></a>
                                         </td>
                                     </tr>
                                 @endforeach
