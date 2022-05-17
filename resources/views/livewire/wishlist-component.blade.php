@@ -1,11 +1,5 @@
 <main id="main" class="main-site left-sidebar">
     <div class="container">
-        <div class="wrap-breadcrumb">
-            <ul>
-                <li class="item-link"><a href="/" class="link">home</a></li>
-                <li class="item-link"><span>Wishlist</span></li>
-            </ul>
-        </div>
         
         <style>
             .product-wish{
@@ -29,7 +23,7 @@
             }
         </style>
 
-        <div class="row">
+        <div class="row" style="padding-top: 5%">
             @if (Cart::instance('wishlist')->content()->count() > 0)
                 <ul class="product-list grid-products equal-container">
                     @foreach (Cart::instance('wishlist')->content() as $item) 
@@ -69,10 +63,36 @@
                 </ul>
             @else
                 <div class="text-center">
+                    <img src="{{ asset('assets/images/emptyWishlist.png') }}" width="400" alt="">
                     <h3>No item in your Wishlist</h3>
                     <a class="link-to-shop" href="/shop">Continue Shopping <i class="fa fa-arrow-circle-right" aria-hidden="true"></i></a>
                 </div>
             @endif
+        </div>
+
+        <hr>
+        <div wire:ignore class="wrap-show-advance-info-box style-1 box-in-site">
+            <h3 class="title-box">Most Viewed Products</h3>
+            <div class="wrap-products">
+                <div class="products slide-carousel owl-carousel style-nav-1 equal-container" data-items="5" data-loop="false" data-nav="true" data-dots="false" data-responsive='{"0":{"items":"1"},"480":{"items":"2"},"768":{"items":"3"},"992":{"items":"3"},"1200":{"items":"5"}}' >
+                    @foreach ($popular_product as $p_product)
+                        <div class="product product-style-2 equal-elem ">
+                            <div class="product-thumnail">
+                                <a href="{{ route('product.details', ['slug'=>$p_product->slug]) }}" title="{{ $p_product->name }}">
+                                    <figure><img src="{{ asset('assets/images/products') }}/{{ $p_product->image }}" width="214" height="214" alt="{{ $p_product->name }}"></figure>
+                                </a>
+                                <div class="wrap-btn">
+                                    <a href="{{ route('product.details', ['slug'=>$p_product->slug]) }}" class="function-link">quick view</a>
+                                </div>
+                            </div>
+                            <div class="product-info">
+                                <a href="{{ route('product.details', ['slug'=>$p_product->slug]) }}" class="product-name"><span>{{ $p_product->name }}</span></a>
+                                <div class="wrap-price"><span class="product-price">{{ currency_IDR($p_product->regular_price) }}</span></div>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+            </div>
         </div>
     </div>
 </main>

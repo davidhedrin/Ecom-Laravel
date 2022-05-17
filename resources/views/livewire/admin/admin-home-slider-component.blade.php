@@ -1,17 +1,4 @@
 <div>
-    <style>
-        .rowCategory{
-            cursor: pointer;
-            transition: 0.3s all;
-        }
-        .rowCategory:hover{
-            background-color: rgb(227, 241, 255) !important;
-            font-weight: bold;
-            font-size: 11pt;
-            transition: 0.3s all;
-        }
-    </style>
-
     {{-- Slider Here --}}
     <div class="row">
         <div class="col-lg-12">
@@ -101,7 +88,7 @@
                             </thead>
                             <tbody>
                                 @foreach ($sliders as $slide)
-                                    <tr class="rowCategory" onclick="window.location='{{ route('admin.edithomeslider', ['slide_id'=>$slide->id]) }}'">
+                                    <tr>
                                         <td>{{ $slide->id }}</td>
                                         <td><img src="{{ asset('assets/images/sliders') }}/{{ $slide->image }}" width="120" alt=""></td>
                                         <td>{{ $slide->title }}</td>

@@ -1,18 +1,7 @@
 @push('styles')
 @endpush
 <div>
-    <style>
-        .rowCategory{
-            cursor: pointer;
-            transition: 0.3s all;
-        }
-        .rowCategory:hover{
-            background-color: rgb(227, 241, 255) !important;
-            font-weight: bold;
-            font-size: 11pt;
-            transition: 0.3s all;
-        }
-    </style>
+    
     {{-- <div class="row" id="cardAddProduct">
         <div class="col-lg-12">
             <div class="card">
@@ -101,9 +90,9 @@
                             </thead>
                             <tbody>
                                 @foreach ($coupons as $coupon)
-                                    <tr class="rowCategory" onclick="window.location='{{ route('admin.editcoupon', ['coupon_id'=>$coupon->id]) }}'">
+                                    <tr>
                                         <td>{{ $coupon->id }}</td>
-                                        <td>{{ $coupon->code }}</td>
+                                        <td  style="color: rgb(23, 204, 10)">{{ $coupon->code }}</td>
                                         <td>{{ $coupon->type }}</td>
                                         @if ($coupon->type == 'fixed')
                                             <td>{{ currency_IDR($coupon->value) }}</td>

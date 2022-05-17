@@ -13,6 +13,7 @@
             transition: 0.3s all;
         }
     </style>
+    {{--  class="rowCategory" onclick="window.location='{{ route('admin.editcategory', ['category_slug'=>$categ->slug]) }}'" --}}
     
     {{-- <div class="row" id="cardAddProduct">
         <div class="col-lg-12">
@@ -88,7 +89,7 @@
                             </thead>
                             <tbody>
                                 @foreach ($categories as $categ)
-                                    <tr class="rowCategory" onclick="window.location='{{ route('admin.editcategory', ['category_slug'=>$categ->slug]) }}'">
+                                    <tr>
                                         <td>{{ $categ->id }}</td>
                                         <td>{{ $categ->name }}</td>
                                         <td>{{ $categ->slug }}</td>

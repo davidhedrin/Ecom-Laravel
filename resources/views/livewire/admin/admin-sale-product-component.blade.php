@@ -1,17 +1,4 @@
 <div>
-    <style>
-        .rowCategory{
-            cursor: pointer;
-            transition: 0.3s all;
-        }
-        .rowCategory:hover{
-            background-color: rgb(227, 241, 255) !important;
-            font-weight: bold;
-            font-size: 11pt;
-            transition: 0.3s all;
-        }
-    </style>
-
     <div class="row">
         <div class="col-lg-12">
             <div class="card">
@@ -111,7 +98,7 @@
                             </thead>
                             <tbody>
                                 @foreach ($products as $product)
-                                    <tr class="rowCategory" onclick="window.location='{{ route('admin.editproduct', ['product_slug' => $product->slug]) }}'">
+                                    <tr>
                                         <td>{{ $product->id }}</td>
                                         <td><img src="{{ asset('assets/images/products') }}/{{ $product->image }}" width="60" alt=""></td>
                                         <td>{{ $product->name }}</td>

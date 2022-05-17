@@ -4,6 +4,7 @@ namespace App\Http\Livewire;
 
 use Livewire\Component;
 use App\Models\Sale;
+use App\Models\Product;
 use Cart;
 
 class WishlistComponent extends Component
@@ -33,6 +34,7 @@ class WishlistComponent extends Component
     public function render()
     {
         $sale = Sale::find(1);
-        return view('livewire.wishlist-component', ['sale'=>$sale])->layout('layouts.base');
+        $popular_product = Product::inRandomOrder()->limit(10)->get();
+        return view('livewire.wishlist-component', ['sale'=>$sale, 'popular_product'=>$popular_product])->layout('layouts.base');
     }
 }
