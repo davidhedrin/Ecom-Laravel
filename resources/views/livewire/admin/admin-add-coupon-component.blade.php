@@ -1,3 +1,6 @@
+@push('styles')
+    <link href="{{ asset('admin/plugins/bootstrap-material-datetimepicker/css/bootstrap-material-datetimepicker.css') }}" rel="stylesheet">
+@endpush
 <div>
     <div class="row">
         <div class="col-lg-12">
@@ -12,6 +15,16 @@
                 </div>
                 <div class="card-body">
                     <form wire:submit.prevent="storeCoupon">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <label class="col-form-label">Expiry Date: <span class="text-danger">*</span>
+                                </label>
+                                <div wire:ignore>
+                                    <input type="text" id="mdate" class="form-control input-default" wire:model="expiry_date"  placeholder="Set expiry coupon" />
+                                    @error('expiry_date') <span class="text-danger">{{ $message }}</span> @enderror
+                                </div>
+                            </div>
+                        </div>
                         <div class="row">
                             <div class="col-md-6">
                                 <label class="col-form-label">Coupon Code: <span class="text-danger">*</span>
@@ -61,3 +74,16 @@
         </div>
     </div>
 </div>
+@push('scripts')
+    <script src="{{ asset('admin/plugins/moment/moment.js') }}"></script>
+    <script src="{{ asset('admin/plugins/bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker.js') }}"></script>
+    <script src="{{ asset('admin/js/plugins-init/form-pickers-init.js') }}"></script>
+    <script>
+        $(function(){
+            $('#mdate').on('change', function(ev){
+                var data = $('#mdate').val();
+                @this.set('expiry_date', data);
+            })
+        });
+    </script>
+@endpush
