@@ -2,11 +2,13 @@
 
 namespace App\Http\Livewire;
 
+use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use App\Models\Coupon;
-use Carbon\Carbon;
 use App\Models\Product;
+use App\Models\Sale;
 use Cart;
+use Carbon\Carbon;
 
 class CartComponent extends Component
 {
@@ -96,6 +98,46 @@ class CartComponent extends Component
         session()->forget('coupon');
     }
 
+    public function checkout()
+    {
+        if(Auth::check())
+        {
+            return redirect()->route('checkout');
+        }
+        else
+        {
+            return redirect()->route('login');
+        }
+    }
+
+    public function setAmountForCheckout()
+    {
+        if(!Cart::instance('cart')->count() > 0)
+        {
+            session()->forget('checkout');
+            return;
+        }
+
+        if(session()->has('coupon'))
+        {
+            session()->put('checkout', [
+                'discount' => $this->discount,
+                'subtotal' => $this->subtotalAfterDiscount,
+                'tax' => $this->taxAfterDiscount,
+                'total' => $this->totalAfterDiscount
+            ]);
+        }
+        else
+        {
+            session()->put('checkout', [
+                'discount' => 0,
+                'subtotal' => Cart::instance('cart')->subtotal(),
+                'tax' => Cart::instance('cart')->tax(),
+                'total' => Cart::instance('cart')->total()
+            ]);
+        }
+    }
+
     public function render()
     {
         if(session()->has('coupon')){
@@ -108,7 +150,10 @@ class CartComponent extends Component
             }
         }
         
+        $this->setAmountForCheckout();
+        
         $popular_product = Product::inRandomOrder()->limit(10)->get();
-        return view('livewire.cart-component', ['popular_product'=>$popular_product])->layout('layouts.base');
+        $sale = Sale::find(1);
+        return view('livewire.cart-component', ['popular_product'=>$popular_product, 'sale'=>$sale])->layout('layouts.base');
     }
 }

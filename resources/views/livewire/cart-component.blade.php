@@ -29,7 +29,7 @@
                                         <a class="link-to-product" href="{{ route('product.details', ['slug'=>$item->model->slug]) }}">{{ $item->model->name }}</a>
                                     </div>
                                     <div class="price-field produtc-price">
-                                        @if ($item->model->sale_price > 0)
+                                        @if ($item->model->sale_price > 0 && $sale->status == 0 && $sale->sale_date > Carbon\Carbon::now())
                                             <div class="text-left">
                                                 <span><del style="font-size: 12px">{{ currency_IDR($item->model->regular_price) }}</del></span>
                                                 <p class="price">{{ currency_IDR($item->model->sale_price) }}</p>
@@ -99,7 +99,7 @@
                                         </div>  
                                     @endif
                                 @endif
-                                <a class="btn btn-checkout" href="checkout.html">Check out</a>
+                                <a class="btn btn-checkout" href="#" wire:click.prevent="checkout">Check out</a>
                             </div> 
                             {{-- <a class="btn btn-update" href="#">Update Shopping Cart</a> --}}
                         </div>
@@ -107,7 +107,7 @@
                         <div class="text-center">
                             <img src="{{ asset('assets/images/emptyCart.png') }}" width="350" alt="">
                             <h3>No item in your Cart</h3>
-                            <a class="link-to-shop" href="/shop">Continue Shopping <i class="fa fa-arrow-circle-right" aria-hidden="true"></i></a>
+                            <a class="btn btn-success link-to-shop" href="/shop">Continue Shopping <i class="fa fa-arrow-circle-right" aria-hidden="true"></i></a>
                         </div>
                     @endif
                     
