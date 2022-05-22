@@ -40,7 +40,7 @@
                                     @error('line1') <span class="text-danger">{{ $message }}</span> @enderror
                                 </p>
                                 <p class="row-in-form">
-                                    <label for="add">Line2:</label>
+                                    <label for="add">Line2</label>
                                     <input type="text" name="add" value="" placeholder="Enter your address" wire:model="line2">
                                 </p>
                                 <p class="row-in-form">
@@ -105,7 +105,7 @@
                                         @error('s_line1') <span class="text-danger">{{ $message }}</span> @enderror
                                     </p>
                                     <p class="row-in-form">
-                                        <label for="add">Line 2:</label>
+                                        <label for="add">Line 2</label>
                                         <input type="text" name="add" value="" placeholder="Enter address" wire:model="s_line2">
                                     </p>
                                     <p class="row-in-form">
@@ -138,35 +138,43 @@
                     <div class="summary-item payment-method">
                         <h4 class="title-box">Payment Method<span class="text-danger">*</span></h4>
                         @error('paymentmode') <span class="text-danger">{{ $message }}</span> @enderror
-                        <p class="summary-info"><span class="title">Check / Money order</span></p>
-                        <p class="summary-info"><span class="title">Credit Cart (saved)</span></p>
-                        <div class="choose-payment-methods">
-                            <label class="payment-method">
-                                <input name="payment-method" id="payment-method-cod" value="cod" type="radio" wire:model="paymentmode">
-                                <span>Cash On Delivery</span>
-                                <span class="payment-desc">Order Now Pay on Delivery</span>
-                            </label>
-                            <label class="payment-method">
-                                <input name="payment-method" id="payment-method-card" value="card" type="radio" wire:model="paymentmode">
-                                <span>Debit / Kredit</span>
-                                <span class="payment-desc">There are many variations of passages of Lorem Ipsum available</span>
-                            </label>
-                            <label class="payment-method">
-                                <input name="payment-method" id="payment-method-paypal" value="paypal" type="radio" wire:model="paymentmode">
-                                <span>Paypal</span>
-                                <span class="payment-desc">You can pay with your credit</span>
-                                <span class="payment-desc">card if you don't have a paypal account</span>
-                            </label>
+                        <div class="row">
+                            <div class="col-md-7">
+                                <div class="choose-payment-methods">
+                                    <label class="payment-method">
+                                        <input name="payment-method" id="payment-method-cod" value="cod" type="radio" wire:model="paymentmode">
+                                        <span>Cash On Delivery</span>
+                                        <span class="payment-desc">Order Now Pay on Delivery</span>
+                                    </label>
+                                    <label class="payment-method">
+                                        <input name="payment-method" id="payment-method-card" value="card" type="radio" wire:model="paymentmode">
+                                        <span>Debit / Kredit</span>
+                                        <span class="payment-desc">There are many variations of passages of Lorem Ipsum available</span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-md-5 text-right" wire:ignore>
+                                <img id="icon-cod-method" style="display: none" src="{{ asset('assets/images/checkout/checkout.png') }}" width="200" alt="Checkout">
+                                <img id="icon-card-method" style="display: none" src="{{ asset('assets/images/checkout/card.png') }}" width="200" alt="Checkout">
+                                <h2 id="icon-choose-method" style="color: rgb(186, 186, 186)"><em>*Choose Payment Method</em></h2>
+                            </div>
                         </div>
-                        @if (Session::has('checkout'))
-                            <p class="summary-info grand-total"><span>Grand Total</span> <span class="grand-total-price">{{ currency_IDR(Session::get('checkout')['total']) }},00</span></p>
-                        @endif
-                        <button type="submit" class="btn btn-medium">Place order now</button>
-                    </div>
-                    <div class="summary-item shipping-method">
-                        <h4 class="title-box f-title">Shipping method</h4>
-                        <p class="summary-info"><span class="title">Flat Rate</span></p>
-                        <p class="summary-info"><span class="title">Fixed Rp. 0</span></p>
+                        <hr>
+                        <div class="shipping-method">
+                            <h4 class="title-box">Shipping method</h4>
+                            <p class="summary-info"><span class="title">Flat Rate</span></p>
+                            <p class="summary-info"><span class="title">Fixed Rp. 0</span></p>
+                        </div>
+                        <hr>
+                        <div class="d-flex justify-content-between">
+                            @if (Session::has('checkout'))
+                                <span class="title-box">Grand Total</span>
+                                <span class="title-box">{{ currency_IDR(Session::get('checkout')['total']) }},00</span>
+                            @endif
+                        </div>
+                        <div class="text-right" style="padding-top: 15px">
+                            <button type="submit" class="btn btn-medium">Checkout Now</button>
+                        </div>
                     </div>
                 </div>
             </form>
@@ -174,3 +182,25 @@
     </div>
 
 </main>
+@push('scripts')
+<script>
+    $("input[name='payment-method']").change(function() {
+        if($("#payment-method-cod").is(':checked')){
+            $("#icon-cod-method").show();
+            $("#icon-card-method").hide();
+            $("#icon-choose-method").hide();
+        }else if($("#payment-method-card").is(':checked')){
+            $("#icon-cod-method").hide();
+            $("#icon-card-method").show();
+            $("#icon-choose-method").hide();
+        }else{
+            $("#icon-cod-method").hide();
+            $("#icon-card-method").hide();
+            $("#icon-choose-method").show();
+        }
+
+        // $("div.desc").hide();
+        // $("#Cars" + test).show();
+    });
+</script>
+@endpush

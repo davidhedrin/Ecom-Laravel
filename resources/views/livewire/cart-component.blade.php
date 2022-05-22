@@ -11,13 +11,9 @@
                         </div>
                     @endif
                     @if (Cart::instance('cart')->count() > 0)
-                        <div class="row" style="padding-bottom: 10px">
-                            <div class="col-md-6">
-                                <h3 class="box-title">Products Detail</h3>
-                            </div>
-                            <div class="col-md-6 text-right">
-                                <a class="btn btn-danger btn-sm" href="#" wire:click.privent="destroyAllItems()">Clear Cart <i class="fa fa-trash"></i></a>
-                            </div>
+                        <div class="d-flex justify-content-between" style="padding-bottom: 15px">
+                            <h3 class="box-title">Products Detail</h3>
+                            <a class="btn btn-danger btn-sm" href="#" wire:click.privent="destroyAllItems()">Clear Cart <i class="fa fa-trash"></i></a>
                         </div>
                         <ul class="products-cart">
                             @foreach (Cart::instance('cart')->content() as $item)

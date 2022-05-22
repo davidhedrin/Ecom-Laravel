@@ -4875,27 +4875,7 @@ table.shop_attributes tbody{
     display: table;
     margin-top: 14px;
 }
-.summary-checkout .summary-item{
-    display: block;
-    float: left;
-    width: 50%;
-}
-.summary-checkout .summary-item.payment-method{
-    padding-right: 15px;
-}
-.summary-checkout .summary-item.shipping-method{
-    padding-left: 15px;
-}
-.summary-checkout .summary-item>h4,
-.summary-checkout .summary-item>p,
-.summary-checkout .summary-item>div{
-    max-width: 470px;
-}
-.summary-checkout .summary-item .summary-info{
-    margin-bottom: 0;
-}
 .summary-checkout .summary-item .summary-info.grand-total{
-    margin-top: 16px;
     margin-bottom: 14px;
 }
 .summary-checkout .summary-item .summary-info .title{
@@ -4963,7 +4943,7 @@ table.shop_attributes tbody{
     display: block;
 }
 .summary-item .summary-info.grand-total span{
-    font-size: 16px;
+    font-size: 20px;
     line-height: 24px;
     font-weight: 600;
     color: #333333;
@@ -4972,7 +4952,6 @@ table.shop_attributes tbody{
     margin-left: 37px;
 }
 .summary-item .btn.btn-medium{
-    max-width: 249px;
     width: 100%;
 }
 .summary-item .btn{
@@ -5016,21 +4995,10 @@ table.shop_attributes tbody{
     text-align: left;
     text-transform: uppercase;
     font-weight: 700;
-    border-bottom: 1px solid #e6e6e6;
-    margin-bottom: 18px;
-    padding-bottom: 15px;
     margin-top: 0;
-}
-.summary-item .title-box{
-    margin-bottom: 14px !important;
 }
 .wrap-address-billing{
     display: inline-block;
-}
-.payment-method .choose-payment-methods{
-    border-top: 1px solid #e6e6e6;
-    margin-top: 13px;
-    padding-top: 12px;
 }
 .shipping-method .summary-info + h4.title-box{
     margin-top: 34px;
@@ -6674,9 +6642,6 @@ background-color: #888888;
         padding-left: 0 !important;
         padding-right: 0 !important;
     }
-    .summary-checkout .summary-item.shipping-method{
-        margin-top: 50px;
-    }
     .product-style-2 .wrap-countdown span:not(:last-child){
         margin-right: 7px;
     }
@@ -7204,4 +7169,11 @@ svg {
 }
 .wrap-pagination-info .rounded-r-md {
     margin-left: 5px;
+}
+
+.d-flex {
+    display: flex !important; 
+}
+.justify-content-between {
+  justify-content: space-between !important; 
 }

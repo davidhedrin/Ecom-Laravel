@@ -39,7 +39,7 @@ class CheckoutComponent extends Component
     public $paymentmode;
     public $thankyou;
 
-    public function update($fields)
+    public function updated($fields)
     {
         $this->validateOnly($fields,[
             'firstname'=>'required',

@@ -189,9 +189,9 @@
 								{{-- <li class="menu-item">
 									<a href="/cart" class="link-term mercado-item-title">Cart</a>
 								</li> --}}
-								<li class="menu-item">
+								{{-- <li class="menu-item">
 									<a href="/checkout" class="link-term mercado-item-title">Checkout</a>
-								</li>
+								</li> --}}
 								<li class="menu-item">
 									<a href="contact-us.html" class="link-term mercado-item-title">Contact Us</a>
 								</li>																	
