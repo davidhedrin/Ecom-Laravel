@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Admin Dashboard</title>
     <!-- Favicon icon -->
-    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('admin/images/favicon.png') }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('assets/images/logo-web.png') }}">
     <!-- Fontawesome Icon -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
     <!-- Custom Stylesheet -->
@@ -32,10 +32,9 @@
                 <a href="{{ route('admin.dashboard') }}">
                     <b class="logo-abbr"><img src="{{ asset('admin/images/logo.png') }}" alt=""></b>
                     <span class="logo-compact"><img src="{{ asset('admin/images/logo-compact.png') }}" alt=""></span>
-                    <h3 style="color: white">E-Come Me.</h3>
-                    {{-- <span class="brand-title">
-                        <img src="{{ asset('admin/images/logo-text.png') }}" alt="">
-                    </span> --}}
+                    <span class="brand-title">
+                        <img src="{{ asset('assets/images/ecomLogo.png') }}" width="170" alt="">
+                    </span>
                 </a>
             </div>
         </div>
