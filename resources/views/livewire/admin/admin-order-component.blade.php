@@ -1,4 +1,16 @@
 <div>
+    <style>
+        .rowCategory{
+            cursor: pointer;
+            transition: 0.3s all;
+        }
+        .rowCategory:hover{
+            background-color: rgb(227, 241, 255) !important;
+            font-weight: bold;
+            font-size: 11pt;
+            transition: 0.3s all;
+        }
+    </style>
     <div class="row">
         <div class="col-lg-12">
             <div class="card">
@@ -21,7 +33,6 @@
                         <table class="table table-striped zero-configuration">
                             <thead>
                                 <tr>
-                                    <th>Or-ID</th>
                                     <th>Name</th>
                                     <th>Subtotal</th>
                                     <th>Discount</th>
@@ -31,13 +42,11 @@
                                     <th>Email</th>
                                     <th>Status</th>
                                     <th>Order Date</th>
-                                    {{-- <th>Action</th> --}}
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach ($orders as $order)
-                                    <tr>
-                                        <td>{{ $order->id }}</td>
+                                    <tr class="rowCategory" onclick="window.location='{{ route('admin.orderdetails',['order_id'=>$order->id]) }}'">
                                         <td>{{ $order->firstname }} {{ $order->lastname }}</td>
                                         <td>{{ currency_IDR($order->subtotal) }}</td>
                                         <td>{{ currency_IDR($order->discount) }}</td>
@@ -45,18 +54,13 @@
                                         <td>{{ currency_IDR($order->total) }}</td>
                                         <td>{{ $order->mobile }}</td>
                                         <td>{{ $order->email }}</td>
-                                        <td>{{ $order->status }}</td>
+                                        <td><div class="badge badge-warning" style="color: white">{{ $order->status }}</div></td>
                                         <td>{{ $order->created_at }}</td>
-                                        {{-- <td>
-                                            <a href="#" class="pr-2"><i class="fa fa-edit" style="color: rgb(255, 170, 0)"></i></a>
-                                            <a href="#"><i class="fa fa-trash" style="color: red"></i></a>
-                                        </td> --}}
                                     </tr>
                                 @endforeach
                             </tbody>
                             <tfoot>
                                 <tr>
-                                    <th>Or-ID</th>
                                     <th>Name</th>
                                     <th>Subtotal</th>
                                     <th>Discount</th>
@@ -66,7 +70,6 @@
                                     <th>Email</th>
                                     <th>Status</th>
                                     <th>Order Date</th>
-                                    {{-- <th>Action</th> --}}
                                 </tr>
                             </tfoot>
                         </table>
