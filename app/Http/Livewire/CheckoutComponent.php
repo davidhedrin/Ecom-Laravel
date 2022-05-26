@@ -147,17 +147,26 @@ class CheckoutComponent extends Component
 
         if($this->paymentmode == 'cod')
         {
-            $transaction = new Transaction();
-            $transaction->user_id = Auth::user()->id;
-            $transaction->order_id = $order->id;
-            $transaction->mode = 'cod';
-            $transaction->status = 'pending';
-            $transaction->save();
+            $this->makeTransaction($order->id, 'pending');
+            $this->resetCart();
         }
+    }
 
+    public function resetCart()
+    {
         $this->thankyou = 1;
         Cart::instance('cart')->destroy();
         session()->forget('checkout');
+    }
+
+    public function makeTransaction($order_id, $status)
+    {
+        $transaction = new Transaction();
+        $transaction->user_id = Auth::user()->id;
+        $transaction->order_id = $order_id;
+        $transaction->mode = $this->paymentmode;
+        $transaction->status = $status;
+        $transaction->save();
     }
 
     public function verifyforCheckout()

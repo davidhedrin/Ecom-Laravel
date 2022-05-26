@@ -201,12 +201,14 @@
         <div class="nk-sidebar">
             <div class="nk-nav-scroll">
                 <ul class="metismenu">
-                    <li>
-                        <a href="{{ route('admin.dashboard') }}">
-                            <i class="icon-speedometer menu-icon"></i><span class="nav-text">Dashboard</span>
-                        </a>
-                    </li>
+                    <hr>
                     <div id="menu">
+                        <li class="nav-label">Home</li>
+                        <li>
+                            <a href="{{ route('admin.dashboard') }}">
+                                <i class="icon-speedometer menu-icon"></i> <span class="nav-text">Dashboard</span>
+                            </a>
+                        </li>
                         <li>
                             <a class="has-arrow" href="javascript:void()" aria-expanded="false">
                                 <i class="fa-solid fa-images"></i> <span class="nav-text">Home Setting</span>
@@ -244,38 +246,12 @@
                                 <li><a href="{{ route('admin.addcoupon') }}">Add Coupon</a></li>
                             </ul>
                         </li>
-                        <li class="nav-label">Apps</li>
+                        <hr>
+                        <li class="nav-label">Shop</li>
                         <li>
-                            <a class="has-arrow" href="javascript:void()" aria-expanded="false">
-                                <i class="icon-envelope menu-icon"></i> <span class="nav-text">Email</span>
+                            <a href="{{ route('admin.orders') }}">
+                                <i class="fa-solid fa-truck-fast"></i> <span class="nav-text">All Orders</span>
                             </a>
-                            <ul aria-expanded="false">
-                                <li><a href="./email-inbox.html">Inbox</a></li>
-                                <li><a href="./email-read.html">Read</a></li>
-                                <li><a href="./email-compose.html">Compose</a></li>
-                            </ul>
-                        </li>
-                        <li>
-                            <a class="has-arrow" href="javascript:void()" aria-expanded="false">
-                                <i class="icon-screen-tablet menu-icon"></i><span class="nav-text">Apps</span>
-                            </a>
-                            <ul aria-expanded="false">
-                                <li><a href="./app-profile.html">Profile</a></li>
-                                <li><a href="./app-calender.html">Calender</a></li>
-                            </ul>
-                        </li>
-                        <li>
-                            <a class="has-arrow" href="javascript:void()" aria-expanded="false">
-                                <i class="icon-graph menu-icon"></i> <span class="nav-text">Charts</span>
-                            </a>
-                            <ul aria-expanded="false">
-                                <li><a href="./chart-flot.html">Flot</a></li>
-                                <li><a href="./chart-morris.html">Morris</a></li>
-                                <li><a href="./chart-chartjs.html">Chartjs</a></li>
-                                <li><a href="./chart-chartist.html">Chartist</a></li>
-                                <li><a href="./chart-sparkline.html">Sparkline</a></li>
-                                <li><a href="./chart-peity.html">Peity</a></li>
-                            </ul>
                         </li>
                     </div>
                 </ul>
