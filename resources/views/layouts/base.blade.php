@@ -94,6 +94,9 @@
 														<a title="Dashboard" href="{{ route('user.dashboard') }}">Dashboard</a>
 													</li>
 													<li class="menu-item" >
+														<a title="Dashboard" href="{{ route('user.orders') }}">My Orders</a>
+													</li>
+													<li class="menu-item" >
 														<a title="Logout" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form-user').submit();">Logout</a>
 													</li>
 													<form method="POST" action="{{ route('logout') }}" id="logout-form-user">

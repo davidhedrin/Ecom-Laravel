@@ -24,7 +24,7 @@
                                             <a href="{{ route('admin.editproduct', ['product_slug'=>$item->product->slug]) }}">{{ $item->product->name }}</a>
                                         </td>
                                         <td>{{ currency_IDR($item->price) }}</td>
-                                        <td>{{ $item->quantity }}</td>
+                                        <td>x {{ $item->quantity }}</td>
                                         <td class="text-right">{{ currency_IDR($item->price * $item->quantity) }}</td>
                                         {{-- <td>
                                             <span class="badge badge-primary px-2">Sale</span>
@@ -52,6 +52,7 @@
                     </div>
                 </div>
             </div>
+            
             <div class="card">
                 <div class="card-body pb-0 d-flex justify-content-between">
                     <div>
