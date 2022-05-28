@@ -640,7 +640,8 @@ header.fill-color .main-info-area .right-section .wrap-icon-section .link-direct
     margin-top: 2px;
 }
 .header-nav-section{
-	border-top: 1px solid #e5e5e5;	
+	border-top: 1px solid #e5e5e5;
+    background: #f60d0d;
 }
 .header-nav-section .menu-nav{
 	display: block;
@@ -655,7 +656,7 @@ header.fill-color .main-info-area .right-section .wrap-icon-section .link-direct
 .header-nav-section li>a{
 	display: inline-block;
 	font-weight: 600;
-	color: #333333;
+	color: rgb(235, 235, 235);
 	text-transform: uppercase;
 	font-size: 13px;
 	padding: 0;

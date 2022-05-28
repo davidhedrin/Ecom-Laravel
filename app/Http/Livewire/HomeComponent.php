@@ -8,11 +8,35 @@ use App\Models\Product;
 use App\Models\HomeCategory;
 use App\Models\Category;
 use App\Models\Sale;
+use Cart;
 
 class HomeComponent extends Component
 {
+    public $search;
+    public $product_cat;
+    public $product_cat_id;
+
+    public function addToWishlist($product_id, $product_name, $product_price)
+    {
+        Cart::instance('wishlist')->add($product_id, $product_name, 1, $product_price)->associate('App\Models\Product');
+        $this->emitTo('wish-list-count-component', 'refreshComponent');
+    }
+    public function removeFromWishlist($product_id)
+    {
+        foreach(Cart::instance('wishlist')->content() as $witem)
+        {
+            if($witem->id == $product_id)
+            {
+                Cart::instance('wishlist')->remove($witem->rowId);
+                $this->emitTo('wish-list-count-component', 'refreshComponent');
+                return;
+            }
+        }
+    }
+
     public function render()
     {
+        $product = Product::all();
         $sliders = HomeSlider::where('status', 0)->get();
 
         // Latest Products
@@ -30,6 +54,7 @@ class HomeComponent extends Component
         return view(
             'livewire.home-component',
             [
+                'products' => $product, 
                 'sliders'=>$sliders,
                 'lproducts'=>$lproducts,
                 'categories'=>$categories,

@@ -1,15 +1,7 @@
 <main id="main" class="main-site left-sidebar">
 
     <div class="container">
-
-        <div class="wrap-breadcrumb">
-            <ul>
-                <li class="item-link"><a href="#" class="link">home</a></li>
-                <li class="item-link"><span>Digital & Electronics</span></li>
-            </ul>
-        </div>
-        <div class="row">
-
+        <div class="row pt-5">
             <div class="col-lg-9 col-md-8 col-sm-8 col-xs-12 main-content-area">
 
                 <div class="banner-shop">
@@ -20,7 +12,7 @@
 
                 <div class="wrap-shop-control">
 
-                    <h1 class="shop-title">Digital & Electronics</h1>
+                    <h1 class="shop-title">All Product</h1>
 
                     <div class="wrap-right">
 
@@ -54,51 +46,75 @@
 
                 </div>
 
-                @if ($products->count() > 0)
-                    <div class="row">
-
-                        <ul class="product-list grid-products equal-container">
-                            @foreach ($products as $product) 
-                                <li class="col-lg-4 col-md-6 col-sm-6 col-xs-6 ">
-                                    <div class="product product-style-3 equal-elem ">
-                                        <div class="product-thumnail">
-                                            <a href="{{ route('product.details', ['slug'=>$product->slug]) }}" title="{{ $product->name }}">
-                                                <figure><img src="{{ asset('assets/images/products') }}/{{ $product->image }}" alt="{{ $product->name }}"></figure>
-                                            </a>
+                <style>
+                    .product-wish{
+                        position: absolute;
+                        top: 10%;
+                        left: 0;
+                        z-index: 99;
+                        right: 30px;
+                        text-align: right;
+                        padding-top: 0;
+                    }
+                    .product-wish .fa{
+                        color: #cbcbcb;
+                        font-size: 28px;
+                    }
+                    .product-wish .fa:hover{
+                        color: #ff3007;
+                    }
+                    .fill-heart{
+                        color: #ff3007 !important;
+                    }
+                </style>
+                <div class="row">
+                    <ul class="product-list grid-products equal-container">
+                        @php
+                            $witems = Cart::instance('wishlist')->content()->pluck('id');
+                        @endphp
+                        @foreach ($products as $product) 
+                            <li class="col-lg-4 col-md-6 col-sm-6 col-xs-6 ">
+                                <div class="product product-style-3 equal-elem ">
+                                    <div class="product-thumnail">
+                                        <a href="{{ route('product.details', ['slug'=>$product->slug]) }}" title="{{ $product->name }}">
+                                            <figure><img src="{{ asset('assets/images/products') }}/{{ $product->image }}" alt="{{ $product->name }}"></figure>
+                                        </a>
+                                    </div>
+                                    <div class="product-info">
+                                        @if ($product->sale_price > 0 && $sale->status == 0 && $sale->sale_date > Carbon\Carbon::now())
+                                            <del><p>{{ currency_IDR($product->regular_price) }}</p></del>
+                                            <h4 style="font-weight: bold; color:rgb(228, 148, 0);">{{ currency_IDR($product->sale_price) }}</h4>
+                                        @else
+                                            <p style="color: white">1</p>
+                                            <h4 style="font-weight: bold; color:rgb(228, 148, 0);">{{ currency_IDR($product->regular_price) }}</h4>
+                                        @endif
+                                        <a href="{{ route('product.details', ['slug'=>$product->slug]) }}"><span>{{ $product->name }}</span></a>
+                                        <div class="wrap-price">Stock: <span class="product-price" style="color: {{ $product->stock_status == 'instock' ? 'rgb(53, 228, 0)' : 'red' }}">{{ $product->stock_status }}</span></div>
+                                        <div class="product-rating">
+                                            <i class="fa fa-star" aria-hidden="true"></i>
+                                            <i class="fa fa-star" aria-hidden="true"></i>
+                                            <i class="fa fa-star" aria-hidden="true"></i>
+                                            <i class="fa fa-star" aria-hidden="true"></i>
+                                            <i class="fa fa-star" aria-hidden="true"></i>
+                                            <a href="#" class="count-review">(05 review)</a>
                                         </div>
-                                        <div class="product-info">
-                                            <a href="{{ route('product.details', ['slug'=>$product->slug]) }}"><span>{{ $product->name }}</span></a>
-                                            <h3 style="font-weight: bold; color:rgb(228, 148, 0);">{{ currency_IDR($product->regular_price) }}</h3>
-                                            <div class="wrap-price">Stock: <span class="product-price" style="color: {{ $product->stock_status == 'instock' ? 'rgb(53, 228, 0)' : 'red' }}">{{ $product->stock_status }}</span></div>
-                                            <div class="product-rating">
-                                                <i class="fa fa-star" aria-hidden="true"></i>
-                                                <i class="fa fa-star" aria-hidden="true"></i>
-                                                <i class="fa fa-star" aria-hidden="true"></i>
-                                                <i class="fa fa-star" aria-hidden="true"></i>
-                                                <i class="fa fa-star" aria-hidden="true"></i>
-                                                <a href="#" class="count-review">(05 review)</a>
-                                            </div>
-                                            <a href="#" class="btn add-to-cart" wire:click.prevent="store({{ $product->id }}, '{{ $product->name }}', {{ $product->regular_price }})">Add To Cart</a>
+                                        <a href="#" class="btn add-to-cart" wire:click.prevent="store({{ $product->id }}, '{{ $product->name }}', {{ $product->regular_price }})">Add To Cart</a>
+                                        <div class="product-wish">
+                                            @if ($witems->contains($product->id))
+                                                <a href="#" wire:click.prevent="removeFromWishlist({{ $product->id }})"><i class="fa fa-heart fill-heart"></i></a>
+                                            @else
+                                                <a href="#" wire:click.prevent="addToWishlist({{ $product->id }}, '{{ $product->name }}', {{ $product->regular_price }})"><i class="fa fa-heart"></i></a>
+                                            @endif
                                         </div>
                                     </div>
-                                </li>
-                            @endforeach
-                        </ul>
-
-                    </div>
-                @else
-                    <h5 class="text-center" style="margin-top: 5%; font-weight: bold">NO PRODUCT FOUND</h5>
-                @endif
+                                </div>
+                            </li>
+                        @endforeach
+                    </ul>
+                </div>
 
                 <div class="wrap-pagination-info">
-                    {{ $products -> links() }}
-                    {{-- <ul class="page-numbers">
-                        <li><span class="page-number-item current" >1</span></li>
-                        <li><a class="page-number-item" href="#" >2</a></li>
-                        <li><a class="page-number-item" href="#" >3</a></li>
-                        <li><a class="page-number-item next-link" href="#" >Next</a></li>
-                    </ul>
-                    <p class="result-count">Showing 1-8 of 12 result</p> --}}
+                    {{ $products -> links('pagination-links') }}
                 </div>
             </div>
 
@@ -135,15 +151,16 @@
                     </div>
                 </div>
 
-                <div class="widget mercado-widget filter-widget price-filter">
-                    <h2 class="widget-title">Price</h2>
+                <div class="widget mercado-widget filter-widget price-filter" style="padding-bottom: 25pt">
+                    <h2 class="widget-title">Price: <span class="text-info">{{ Currency_IDR($min_price) }} - {{ Currency_IDR($max_price) }}</span></h2>
                     <div class="widget-content">
-                        <div id="slider-range"></div>
+                        <div id="slider" wire:ignore></div>
+                        {{-- <div id="slider-range"></div>
                         <p>
                             <label for="amount">Price:</label>
                             <input type="text" id="amount" readonly>
                             <button class="filter-submit">Filter</button>
-                        </p>
+                        </p> --}}
                     </div>
                 </div>
 
@@ -161,81 +178,25 @@
                     </div>
                 </div>
 
-                <div class="widget mercado-widget filter-widget">
-                    <h2 class="widget-title">Size</h2>
-                    <div class="widget-content">
-                        <ul class="list-style inline-round ">
-                            <li class="list-item"><a class="filter-link active" href="#">s</a></li>
-                            <li class="list-item"><a class="filter-link " href="#">M</a></li>
-                            <li class="list-item"><a class="filter-link " href="#">l</a></li>
-                            <li class="list-item"><a class="filter-link " href="#">xl</a></li>
-                        </ul>
-                        <div class="widget-banner">
-                            <figure><img src="{{ asset('assets/images/size-banner-widget.jpg') }}" width="270" height="331" alt=""></figure>
-                        </div>
-                    </div>
-                </div>
-
                 <div class="widget mercado-widget widget-product">
                     <h2 class="widget-title">Popular Products</h2>
                     <div class="widget-content">
                         <ul class="products">
-                            <li class="product-item">
-                                <div class="product product-widget-style">
-                                    <div class="thumbnnail">
-                                        <a href="detail.html" title="Radiant-360 R6 Wireless Omnidirectional Speaker [White]">
-                                            <figure><img src="{{ asset('assets/images/products/digital_01.jpg') }}" alt=""></figure>
-                                        </a>
+                            @foreach ($popular_product as $p_product)
+                                <li class="product-item">
+                                    <div class="product product-widget-style">
+                                        <div class="thumbnnail">
+                                            <a href="{{ route('product.details', ['slug'=>$p_product->slug]) }}" title="{{ $p_product->name }}">
+                                                <figure><img src="{{ asset('assets/images/products') }}/{{ $p_product->image }}" alt="{{ $p_product->name }}"></figure>
+                                            </a>
+                                        </div>
+                                        <div class="product-info">
+                                            <a href="{{ route('product.details', ['slug'=>$p_product->slug]) }}" class="product-name"><span>{{ $p_product->name }}</span></a>
+                                            <div class="wrap-price"><span class="product-price">{{ currency_IDR($p_product->regular_price) }}</span></div>
+                                        </div>
                                     </div>
-                                    <div class="product-info">
-                                        <a href="#" class="product-name"><span>Radiant-360 R6 Wireless Omnidirectional Speaker...</span></a>
-                                        <div class="wrap-price"><span class="product-price">$168.00</span></div>
-                                    </div>
-                                </div>
-                            </li>
-
-                            <li class="product-item">
-                                <div class="product product-widget-style">
-                                    <div class="thumbnnail">
-                                        <a href="detail.html" title="Radiant-360 R6 Wireless Omnidirectional Speaker [White]">
-                                            <figure><img src="{{ asset('assets/images/products/digital_17.jpg') }}" alt=""></figure>
-                                        </a>
-                                    </div>
-                                    <div class="product-info">
-                                        <a href="#" class="product-name"><span>Radiant-360 R6 Wireless Omnidirectional Speaker...</span></a>
-                                        <div class="wrap-price"><span class="product-price">$168.00</span></div>
-                                    </div>
-                                </div>
-                            </li>
-
-                            <li class="product-item">
-                                <div class="product product-widget-style">
-                                    <div class="thumbnnail">
-                                        <a href="detail.html" title="Radiant-360 R6 Wireless Omnidirectional Speaker [White]">
-                                            <figure><img src="{{ asset('assets/images/products/digital_18.jpg') }}" alt=""></figure>
-                                        </a>
-                                    </div>
-                                    <div class="product-info">
-                                        <a href="#" class="product-name"><span>Radiant-360 R6 Wireless Omnidirectional Speaker...</span></a>
-                                        <div class="wrap-price"><span class="product-price">$168.00</span></div>
-                                    </div>
-                                </div>
-                            </li>
-
-                            <li class="product-item">
-                                <div class="product product-widget-style">
-                                    <div class="thumbnnail">
-                                        <a href="detail.html" title="Radiant-360 R6 Wireless Omnidirectional Speaker [White]">
-                                            <figure><img src="{{ asset('assets/images/products/digital_20.jpg') }}" alt=""></figure>
-                                        </a>
-                                    </div>
-                                    <div class="product-info">
-                                        <a href="#" class="product-name"><span>Radiant-360 R6 Wireless Omnidirectional Speaker...</span></a>
-                                        <div class="wrap-price"><span class="product-price">$168.00</span></div>
-                                    </div>
-                                </div>
-                            </li>
-
+                                </li>
+                            @endforeach
                         </ul>
                     </div>
                 </div>
@@ -247,3 +208,26 @@
     </div>
 
 </main>
+@push('scripts')
+    <script>
+        var slider = document.getElementById('slider');
+        noUiSlider.create(slider, {
+            start: [0, 10000000],
+            connect: true,
+            range: {
+                'min':0,
+                'max':10000000
+            },
+            pips:{
+                mode:'steps',
+                stepped:true,
+                density:3
+            }
+        });
+
+        slider.noUiSlider.on('update', function(value){
+            @this.set('min_price', value[0]);
+            @this.set('max_price', value[1]);
+        })
+    </script>
+@endpush

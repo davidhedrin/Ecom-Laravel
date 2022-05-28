@@ -189,7 +189,78 @@
                     </div>
                 </div>
             </div>
-        </div>			
+        </div>
+        
+        
+        <style>
+            .product-wish{
+                position: absolute;
+                top: 10%;
+                left: 0;
+                z-index: 99;
+                right: 30px;
+                text-align: right;
+                padding-top: 0;
+            }
+            .product-wish .fa{
+                color: #cbcbcb;
+                font-size: 28px;
+            }
+            .product-wish .fa:hover{
+                color: #ff3007;
+            }
+            .fill-heart{
+                color: #ff3007 !important;
+            }
+        </style>
+        <div class="wrap-show-advance-info-box style-1">
+            <h3 class="title-box">All Product</h3>
+            <div class="row">
+                <ul class="product-list grid-products equal-container">
+                    @php
+                        $witems = Cart::instance('wishlist')->content()->pluck('id');
+                    @endphp
+                    @foreach ($products as $product) 
+                        <li class="col-lg-3 col-md-6 col-sm-6 col-xs-6 ">
+                            <div class="product product-style-3 equal-elem ">
+                                <div class="product-thumnail">
+                                    <a href="{{ route('product.details', ['slug'=>$product->slug]) }}" title="{{ $product->name }}">
+                                        <figure><img src="{{ asset('assets/images/products') }}/{{ $product->image }}" alt="{{ $product->name }}"></figure>
+                                    </a>
+                                </div>
+                                <div class="product-info">
+                                    @if ($product->sale_price > 0 && $sale->status == 0 && $sale->sale_date > Carbon\Carbon::now())
+                                        <del><p>{{ currency_IDR($product->regular_price) }}</p></del>
+                                        <h4 style="font-weight: bold; color:rgb(228, 148, 0);">{{ currency_IDR($product->sale_price) }}</h4>
+                                    @else
+                                        <p style="color: white">1</p>
+                                        <h4 style="font-weight: bold; color:rgb(228, 148, 0);">{{ currency_IDR($product->regular_price) }}</h4>
+                                    @endif
+                                    <a href="{{ route('product.details', ['slug'=>$product->slug]) }}"><span>{{ $product->name }}</span></a>
+                                    <div class="wrap-price">Stock: <span class="product-price" style="color: {{ $product->stock_status == 'instock' ? 'rgb(53, 228, 0)' : 'red' }}">{{ $product->stock_status }}</span></div>
+                                    <div class="product-rating">
+                                        <i class="fa fa-star" aria-hidden="true"></i>
+                                        <i class="fa fa-star" aria-hidden="true"></i>
+                                        <i class="fa fa-star" aria-hidden="true"></i>
+                                        <i class="fa fa-star" aria-hidden="true"></i>
+                                        <i class="fa fa-star" aria-hidden="true"></i>
+                                        <a href="#" class="count-review">(05 review)</a>
+                                    </div>
+                                    <a href="#" class="btn add-to-cart" wire:click.prevent="store({{ $product->id }}, '{{ $product->name }}', {{ $product->regular_price }})">Add To Cart</a>
+                                    <div class="product-wish">
+                                        @if ($witems->contains($product->id))
+                                            <a href="#" wire:click.prevent="removeFromWishlist({{ $product->id }})"><i class="fa fa-heart fill-heart"></i></a>
+                                        @else
+                                            <a href="#" wire:click.prevent="addToWishlist({{ $product->id }}, '{{ $product->name }}', {{ $product->regular_price }})"><i class="fa fa-heart"></i></a>
+                                        @endif
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    @endforeach
+                </ul>
+            </div>
+        </div>
 
     </div>
 

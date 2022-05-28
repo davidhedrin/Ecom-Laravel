@@ -1,14 +1,7 @@
 <main id="main" class="main-site left-sidebar">
 
     <div class="container">
-
-        <div class="wrap-breadcrumb">
-            <ul>
-                <li class="item-link"><a href="#" class="link">home</a></li>
-                <li class="item-link"><span>Digital & Electronics</span></li>
-            </ul>
-        </div>
-        <div class="row">
+        <div class="row pt-5">
 
             <div class="col-lg-9 col-md-8 col-sm-8 col-xs-12 main-content-area">
 
@@ -123,13 +116,6 @@
 
                 <div class="wrap-pagination-info">
                     {{ $products -> links('pagination-links') }}
-                    {{-- <ul class="page-numbers">
-                        <li><span class="page-number-item current" >1</span></li>
-                        <li><a class="page-number-item" href="#" >2</a></li>
-                        <li><a class="page-number-item" href="#" >3</a></li>
-                        <li><a class="page-number-item next-link" href="#" >Next</a></li>
-                    </ul>
-                    <p class="result-count">Showing 1-8 of 12 result</p> --}}
                 </div>
             </div>
 
