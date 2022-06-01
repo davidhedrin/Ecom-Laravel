@@ -1,6 +1,63 @@
 <div>
     <div class="row">
         <div class="col-lg-12">
+            <div class="row">
+                <div class="col-lg-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="text-center">
+                                <span class="display-5"><i class="fa-regular fa-calendar-check gradient-1-text"></i></span>
+                                <h5>Order Date</h5>
+                                <h3>{{ $order->created_at }}</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="text-center">
+                                @if ($order->status == "delivered")
+                                    <span class="display-5"><i class="fa-solid fa-truck-fast gradient-1-text"></i></span>
+                                @elseif ($order->status == "cenceled")
+                                    <span class="display-5"><i class="fa-solid fa-truck-arrow-right gradient-1-text"></i></span>
+                                @else
+                                    <span class="display-5"><i class="fa-solid fa-boxes-packing gradient-4-text"></i></span>
+                                @endif
+                                <h5>Status</h5>
+                                @if ($order->status == "delivered")
+                                    <h3>Delivered</h3>
+                                @elseif ($order->status == "cenceled")
+                                    <h3>Canceled</h3>
+                                @else
+                                    <h3>Ordered</h3>
+                                @endif
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="text-center">
+                                <span class="display-5"><i class="fa-regular fa-calendar-days {{ $order->status == "ordered" ? "gradient-4-text":"gradient-1-text" }}"></i></span>
+                                @if ($order->status == "delivered")
+                                    <h5>Delivery Date</h5>
+                                    <h3>{{ $order->delivered_date }}</h3>
+                                @elseif ($order->status == "cenceled")
+                                    <h5>Canceled Date</h5>
+                                    <h3>{{ $order->canceled_date }}</h3>
+                                @else
+                                    <h5>Deliver/Cancel Date</h5>
+                                    <h3>-</h3>
+                                @endif
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <div class="card">
                 <div class="card-body pb-0 d-flex justify-content-between">
                     <div>
@@ -51,82 +108,86 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div>  
             
             <div class="card">
-                <div class="card-body pb-0 d-flex justify-content-between">
-                    <div>
-                        <h4>Billing Details</h4>
-                    </div>
-                </div>
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="table-responsive">
-                                <table class="table">
-                                    <tbody>
-                                        <tr>
-                                            <th>First Name</th>
-                                            <td><strong>:</strong></td>
-                                            <td>{{ $order->firstname }}</td>
-                                        </tr>
-                                        <tr>
-                                            <th>Last Name</th>
-                                            <td><strong>:</strong></td>
-                                            <td>{{ $order->lastname }}</td>
-                                        </tr>
-                                        <tr>
-                                            <th>Phone</th>
-                                            <td><strong>:</strong></td>
-                                            <td>{{ $order->mobile }}</td>
-                                        </tr>
-                                        <tr>
-                                            <th>Email</th>
-                                            <td><strong>:</strong></td>
-                                            <td>{{ $order->email }}</td>
-                                        </tr>
-                                        <tr>
-                                            <th>Line 1</th>
-                                            <td><strong>:</strong></td>
-                                            <td>{{ $order->line1 }}</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                                <hr>
-                            </div>
+                <div id="accordion-two" class="accordion">
+                    <div class="card-body">
+                        <div>
+                            <h4 class="collapsed" data-toggle="collapse" data-target="#billingDetails" aria-expanded="true" aria-controls="billingDetails">
+                                <i class="fa" aria-hidden="true"></i> Billing Details
+                            </h4>
                         </div>
-                        <div class="col-md-6">
-                            <div class="table-responsive">
-                                <table class="table">
-                                    <tbody>
-                                        <tr>
-                                            <th>City</th>
-                                            <td><strong>:</strong></td>
-                                            <td>{{ $order->city }}</td>
-                                        </tr>
-                                        <tr>
-                                            <th>Province</th>
-                                            <td><strong>:</strong></td>
-                                            <td>{{ $order->province }}</td>
-                                        </tr>
-                                        <tr>
-                                            <th>Country</th>
-                                            <td><strong>:</strong></td>
-                                            <td>{{ $order->country }}</td>
-                                        </tr>
-                                        <tr>
-                                            <th>Zip Code</th>
-                                            <td><strong>:</strong></td>
-                                            <td>{{ $order->zipcode }}</td>
-                                        </tr>
-                                        <tr>
-                                            <th>Line 2</th>
-                                            <td><strong>:</strong></td>
-                                            <td>{{ $order->line2 }}</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                                <hr>
+                        <div id="billingDetails" class="collapse" data-parent="#accordion-two">
+                            <div class="row mt-3">
+                                <div class="col-md-6">
+                                    <div class="table-responsive">
+                                        <table class="table">
+                                            <tbody>
+                                                <tr>
+                                                    <th>First Name</th>
+                                                    <td><strong>:</strong></td>
+                                                    <td>{{ $order->firstname }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Last Name</th>
+                                                    <td><strong>:</strong></td>
+                                                    <td>{{ $order->lastname }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Phone</th>
+                                                    <td><strong>:</strong></td>
+                                                    <td>{{ $order->mobile }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Email</th>
+                                                    <td><strong>:</strong></td>
+                                                    <td>{{ $order->email }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Line 1</th>
+                                                    <td><strong>:</strong></td>
+                                                    <td>{{ $order->line1 }}</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        <hr>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="table-responsive">
+                                        <table class="table">
+                                            <tbody>
+                                                <tr>
+                                                    <th>City</th>
+                                                    <td><strong>:</strong></td>
+                                                    <td>{{ $order->city }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Province</th>
+                                                    <td><strong>:</strong></td>
+                                                    <td>{{ $order->province }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Country</th>
+                                                    <td><strong>:</strong></td>
+                                                    <td>{{ $order->country }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Zip Code</th>
+                                                    <td><strong>:</strong></td>
+                                                    <td>{{ $order->zipcode }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Line 2</th>
+                                                    <td><strong>:</strong></td>
+                                                    <td>{{ $order->line2 }}</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        <hr>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -134,91 +195,97 @@
             </div>
 
             <div class="card">
-                <div class="card-body pb-0 d-flex justify-content-between">
-                    <div>
-                        <h4>Shipping Details</h4>
+                <div id="accordion-two" class="accordion">
+                    <div class="card-body">
+                        <div>
+                            <h4 class="collapsed" data-toggle="collapse" data-target="#shippingDetail" aria-expanded="false" aria-controls="shippingDetail">
+                                <i class="fa" aria-hidden="true"></i> Shipping Details
+                            </h4>
+                        </div>
+                        <div id="shippingDetail" class="collapse" data-parent="#accordion-two">
+                            <div class="mt-3">
+                                @if ($order->is_shipping_different)
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="table-responsive">
+                                                <table class="table">
+                                                    <tbody>
+                                                        <tr>
+                                                            <th>First Name</th>
+                                                            <td><strong>:</strong></td>
+                                                            <td>{{ $order->shipping->firstname }}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>Last Name</th>
+                                                            <td><strong>:</strong></td>
+                                                            <td>{{ $order->shipping->lastname }}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>Phone</th>
+                                                            <td><strong>:</strong></td>
+                                                            <td>{{ $order->shipping->mobile }}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>Email</th>
+                                                            <td><strong>:</strong></td>
+                                                            <td>{{ $order->shipping->email }}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>Line 1</th>
+                                                            <td><strong>:</strong></td>
+                                                            <td>{{ $order->shipping->line1 }}</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                                <hr>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="table-responsive">
+                                                <table class="table">
+                                                    <tbody>
+                                                        <tr>
+                                                            <th>City</th>
+                                                            <td><strong>:</strong></td>
+                                                            <td>{{ $order->shipping->city }}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>Province</th>
+                                                            <td><strong>:</strong></td>
+                                                            <td>{{ $order->shipping->province }}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>Country</th>
+                                                            <td><strong>:</strong></td>
+                                                            <td>{{ $order->shipping->country }}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>Zip Code</th>
+                                                            <td><strong>:</strong></td>
+                                                            <td>{{ $order->shipping->zipcode }}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>Line 2</th>
+                                                            <td><strong>:</strong></td>
+                                                            <td>{{ $order->shipping->line2 }}</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                                <hr>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @else
+                                    <hr style="margin-top: 0">
+                                    <div class="text-center">
+                                        <h3>No Shipping Details</h3>
+                                        <h5>Shipping address not created</h5>
+                                    </div>
+                                    <hr>
+                                @endif
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div class="card-body">
-                    @if ($order->is_shipping_different)
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="table-responsive">
-                                    <table class="table">
-                                        <tbody>
-                                            <tr>
-                                                <th>First Name</th>
-                                                <td><strong>:</strong></td>
-                                                <td>{{ $order->shipping->firstname }}</td>
-                                            </tr>
-                                            <tr>
-                                                <th>Last Name</th>
-                                                <td><strong>:</strong></td>
-                                                <td>{{ $order->shipping->lastname }}</td>
-                                            </tr>
-                                            <tr>
-                                                <th>Phone</th>
-                                                <td><strong>:</strong></td>
-                                                <td>{{ $order->shipping->mobile }}</td>
-                                            </tr>
-                                            <tr>
-                                                <th>Email</th>
-                                                <td><strong>:</strong></td>
-                                                <td>{{ $order->shipping->email }}</td>
-                                            </tr>
-                                            <tr>
-                                                <th>Line 1</th>
-                                                <td><strong>:</strong></td>
-                                                <td>{{ $order->shipping->line1 }}</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                    <hr>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="table-responsive">
-                                    <table class="table">
-                                        <tbody>
-                                            <tr>
-                                                <th>City</th>
-                                                <td><strong>:</strong></td>
-                                                <td>{{ $order->shipping->city }}</td>
-                                            </tr>
-                                            <tr>
-                                                <th>Province</th>
-                                                <td><strong>:</strong></td>
-                                                <td>{{ $order->shipping->province }}</td>
-                                            </tr>
-                                            <tr>
-                                                <th>Country</th>
-                                                <td><strong>:</strong></td>
-                                                <td>{{ $order->shipping->country }}</td>
-                                            </tr>
-                                            <tr>
-                                                <th>Zip Code</th>
-                                                <td><strong>:</strong></td>
-                                                <td>{{ $order->shipping->zipcode }}</td>
-                                            </tr>
-                                            <tr>
-                                                <th>Line 2</th>
-                                                <td><strong>:</strong></td>
-                                                <td>{{ $order->shipping->line2 }}</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                    <hr>
-                                </div>
-                            </div>
-                        </div>
-                    @else
-                        <hr style="margin-top: 0">
-                        <div class="text-center">
-                            <h3>No Shipping Details</h3>
-                            <h5>Shipping address not created</h5>
-                        </div>
-                        <hr>
-                    @endif
                 </div>
             </div>
 

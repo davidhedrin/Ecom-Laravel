@@ -45,7 +45,11 @@
                                         <td>{{ currency_IDR($order->total) }}</td>
                                         <td>{{ $order->mobile }}</td>
                                         <td>{{ $order->email }}</td>
-                                        <td><div class="badge badge-warning" style="color: white">{{ $order->status }}</div></td>
+                                        <td>
+                                            <div class="badge {{ $order->status == "ordered" ? "badge-warning" : ($order->status == "delivered" ? "badge-success" : ($order->status == "cenceled" ? "badge-danger" : "")) }}" style="color: white">
+                                                {{ $order->status == "ordered" ? "ordered" : ($order->status == "delivered" ? "delivered" : ($order->status == "cenceled" ? "canceled" : "")) }}
+                                            </div>
+                                        </td>
                                         <td>{{ $order->created_at }}</td>
                                     </tr>
                                 @endforeach
