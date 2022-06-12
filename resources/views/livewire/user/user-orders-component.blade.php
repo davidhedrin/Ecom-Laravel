@@ -46,7 +46,7 @@
                                         <td>{{ $order->mobile }}</td>
                                         <td>{{ $order->email }}</td>
                                         <td>
-                                            <div class="badge {{ $order->status == "ordered" ? "badge-warning" : ($order->status == "delivered" ? "badge-success" : ($order->status == "cenceled" ? "badge-danger" : "")) }}" style="color: white">
+                                            <div style="color: {{ $order->status == "ordered" ? "orange" : ($order->status == "delivered" ? "green" : ($order->status == "cenceled" ? "red" : "")) }}; font-weight: 800">
                                                 {{ $order->status == "ordered" ? "ordered" : ($order->status == "delivered" ? "delivered" : ($order->status == "cenceled" ? "canceled" : "")) }}
                                             </div>
                                         </td>

@@ -5,13 +5,81 @@
         }
     </style>
     <div class="container" style="padding: 30px 0;">
+        @if (Session::has('order_msg'))
+            <div class="alert alert-success" role="alert">
+                {{ Session::get('order_msg') }}
+            </div>
+        @endif
+        <div class="row">
+            <div class="col-md-4">
+                <div class="panel panel-default text-center">
+                    <div class="panel-heading">
+                        <strong>Order Date</strong>
+                    </div>
+                    <div class="panel-body">
+                        <h3><strong>{{ $order->created_at }}</strong></h3>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="panel panel-default text-center">
+                    <div class="panel-heading">
+                        <strong>Order Status</strong>
+                    </div>
+                    <div class="panel-body">
+                        @if ($order->status == "delivered")
+                            <h3 style="color: green"><strong>Delivered</strong></h3>
+                        @elseif ($order->status == "cenceled")
+                            <h3 style="color: red"><strong>Canceled</strong></h3>
+                        @else
+                            <h3 style="color: orange"><strong>Ordered</strong></h3>
+                        @endif
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="panel panel-default text-center">
+                    <div class="panel-heading">
+                        @if ($order->status == "delivered")
+                            <strong>Delivery Date</strong>
+                        @elseif ($order->status == "cenceled")
+                            <strong>Canceled Date</strong>
+                        @else
+                            <strong>Deliver/Cancel Date</strong>
+                        @endif
+                    </div>
+                    <div class="panel-body">
+                        @if ($order->status == "delivered")
+                            <h3><strong>{{ $order->delivered_date }}</strong></h3>
+                        @elseif ($order->status == "cenceled")
+                            <h3><strong>{{ $order->canceled_date }}</strong></h3>
+                        @else
+                            <h3><strong>-</strong></h3>
+                        @endif
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="row">
             <div class="col-md-12">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                       <strong>Order Details</strong>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <strong>Order Details</strong>
+                            </div>
+                            <div class="col-md-6">
+                                <a href="{{ route('user.orders') }}" class="btn btn-warning btn-sm pull-right" style="margin-left: 10px">Back</a>
+                                @if ($order->status == 'ordered')
+                                    <a href="#" wire:click.prevent="cancelOrder" class="btn btn-danger btn-sm pull-right">Cancel Order</a>
+                                @endif
+                            </div>
+                        </div>
                     </div>
                     <div class="panel-body">
+                        @if (Session::has('msg_review'))
+                            <p class="alert alert-success" role="alert">{{ Session::get('msg_review') }}</p>
+                        @endif
                         <table class="table">
                             @foreach ($order->OrderItems as $item)
                                 <tr>
@@ -25,6 +93,12 @@
                                     <td>{{ currency_IDR($item->price) }}</td>
                                     <td>x {{ $item->quantity }}</td>
                                     <td class="text-right">{{ currency_IDR($item->price * $item->quantity) }}</td>
+                                    @if ($order->status == 'delivered' && $item->rstatus == false)
+                                        <td class="text-right"><a href="{{ route('user.review', ['order_item_id'=>$item->id]) }}"><strong>Write Review</strong></a></td>
+                                    @elseif ($order->status == 'ordered' || $order->status == 'cenceled' && $item->rstatus == false)
+                                    @else
+                                        <td class="text-right"><strong>Reviewed</strong></td>
+                                    @endif
                                     {{-- <td>
                                         <span class="badge badge-primary px-2">Sale</span>
                                     </td> --}}

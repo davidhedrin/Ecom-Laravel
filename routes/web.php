@@ -15,6 +15,8 @@ use App\Http\Livewire\ThankyouComponent;
 //Order
 use App\Http\Livewire\User\UserOrdersComponent;
 use App\Http\Livewire\User\UserOrderDetailsComponent;
+//Reveiw
+use App\Http\Livewire\User\UserReviewComponent;
 
 /*For Admin*/
 use App\Http\Livewire\Admin\AdminDashboardComponent;
@@ -83,6 +85,9 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     //Order Route
     Route::get('/user/orders', UserOrdersComponent::class)->name('user.orders');
     Route::get('/user/order/{order_id}', UserOrderDetailsComponent::class)->name('user.orderdetails');
+
+    //Reveiw
+    Route::get('/user/review/{order_item_id}', UserReviewComponent::class)->name('user.review');
 });
 
 //Route for admin
